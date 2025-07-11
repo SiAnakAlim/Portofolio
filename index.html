@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+   <style>
+    /* Custom CSS: Pastikan ini ada di file CSS Anda atau di <style> tag */
+    .bg-dark-blue { background-color: #1a202c; /* Example dark blue */ }
+    .text-dark-blue { color: #1a202c; }
+    .bg-primary { background-color: #FFD700; /* Example primary color (gold) */ }
+    .text-primary { color: #FFD700; }
+    .bg-light-blue { background-color: #ADD8E6; /* Example light blue */ }
+
+    .gradient-text {
+        background: linear-gradient(to right, #FFD700, #FFA500); /* Gold to Orange */
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Untuk scrollbar yang disembunyikan tapi tetap bisa digeser */
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+    .scrollbar-hide {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+
+    /* Animasi Project Card Hover */
+    .project-card:hover .project-overlay {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .project-card:hover .project-image {
+        transform: scale(1.1); /* Slight zoom on image */
+    }
+
+    /* Divider styling */
+    .divider {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100px; /* Tinggi divider */
+        background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.05)); /* Sedikit gradient */
+        transform: skewY(-2deg); /* Efek miring */
+        transform-origin: top left;
+        z-index: 0;
+    }
+
+    /* Custom keyframes for project card entrance */
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .animate-slide-in-up {
+        animation: slideInUp 0.6s ease-out forwards;
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+    .modal-content {
+        background-color: white;
+        border-radius: 12px;
+        padding: 32px;
+        max-width: 600px;
+        width: 90%;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+        position: relative;
+        animation: fadeInScale 0.3s ease-out forwards;
+    }
+    @keyframes fadeInScale {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    .modal-close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #666;
+    }
+</style>
+    <style>
+        :root {
+            --primary-color: #f8d254;
+            --primary-light: #fdf1d1;
+            --secondary-color: #f0f0f0;
+            --dark-blue: #1e3a8a;
+            --light-blue: #3b82f6;
+            --dark-gray: #1f2937;
+            --light-gray: #f3f4f6;
+        }
+        
+        body {
+            scroll-behavior: smooth;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--light-gray);
+        }
+        
+        .bg-primary {
+            background-color: var(--primary-color);
+        }
+        
+        .bg-primary-light {
+            background-color: var(--primary-light);
+        }
+        
+        .bg-secondary {
+            background-color: var(--secondary-color);
+        }
+        
+        .bg-dark-blue {
+            background-color: var(--dark-blue);
+        }
+        
+        .bg-light-blue {
+            background-color: var(--light-blue);
+        }
+        
+        .text-primary {
+            color: var(--primary-color);
+        }
+        
+        .text-dark-blue {
+            color: var(--dark-blue);
+        }
+        
+        .text-light-blue {
+            color: var(--light-blue);
+        }
+        
+        /* Floating animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .float-2 {
+            animation: float 5s ease-in-out infinite 1s;
+        }
+        
+        .float-3 {
+            animation: float 7s ease-in-out infinite 0.5s;
+        }
+        
+        /* Pulse animation */
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .pulse {
+            animation: pulse 4s infinite;
+        }
+        
+        /* Rotate animation */
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .rotate {
+            animation: rotate 20s linear infinite;
+        }
+        
+        /* Bounce animation */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .bounce {
+            animation: bounce 3s infinite;
+        }
+        
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary-color), var(--light-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Glass morphism effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f0c014;
+        }
+        
+        /* Navbar styles */
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateY(-100%);
+            transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+        }
+        
+        .mobile-menu.open {
+            transform: translateY(0);
+        }
+        
+        /* Project card */
+        .project-card {
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--light-blue));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .project-card:hover::before {
+            opacity: 1;
+        }
+        
+        /* Tech stack icons */
+        .tech-icon {
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            filter: grayscale(30%);
+        }
+        
+        .tech-icon:hover {
+            transform: scale(1.2) translateY(-5px);
+            filter: grayscale(0%);
+        }
+        
+        /* Skill bubbles */
+        .skill-bubble {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .skill-bubble:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Contact form */
+        .form-input {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+        }
+        
+        .form-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(248, 210, 84, 0.2);
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        /* Decorations */
+        .decoration-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        /* Section divider */
+        .divider {
+            position: relative;
+            height: 80px;
+            overflow: hidden;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            left: -5%;
+            right: -5%;
+            top: 0;
+            height: 200%;
+            background: linear-gradient(to bottom right, transparent 49%, white 50%), 
+                        linear-gradient(to bottom left, transparent 49%, white 50%);
+            background-size: 50% 100%;
+            background-repeat: no-repeat;
+            transform: rotate(180deg);
+        }
+        
+        /* Timeline */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            border: 4px solid white;
+            left: -10px;
+            top: 0;
+        }
+        
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--light-blue));
+            opacity: 0.3;
+            filter: blur(1px);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div id="particles-js"></div>
+    
+    <nav class="fixed w-full bg-white bg-opacity-90 shadow-sm z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-3">
+    <div class="flex justify-between items-center">
+        <div class="text-2xl font-bold text-dark-blue flex items-center">
+            <i class="fas fa-code text-primary mr-2"></i> <span class="gradient-text">PortfolioPro</span> </div>
+        <div class="hidden md:flex space-x-8">
+            <a href="#home" class="nav-link text-gray-700 hover:text-dark-blue font-medium">Home</a>
+            <a href="#about" class="nav-link text-gray-700 hover:text-dark-blue font-medium">About</a>
+            <a href="#skills" class="nav-link text-gray-700 hover:text-dark-blue font-medium">Skills</a>
+            <a href="#projects" class="nav-link text-gray-700 hover:text-dark-blue font-medium">Projects</a>
+            <a href="#experience" class="nav-link text-gray-700 hover:text-dark-blue font-medium">Experience</a>
+            <a href="#contact" class="nav-link text-gray-700 hover:text-dark-blue font-medium">Contact</a>
+        </div>
+        <button class="md:hidden focus:outline-none" id="mobile-menu-button">
+            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </div>
+</div>
+        
+        <div class="mobile-menu md:hidden absolute w-full bg-white shadow-lg z-40" id="mobile-menu">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-dark-blue font-medium flex items-center">
+                        <i class="fas fa-home mr-3 text-primary"></i> Home
+                    </a>
+                    <a href="#about" class="nav-link text-gray-700 hover:text-dark-blue font-medium flex items-center">
+                        <i class="fas fa-user mr-3 text-primary"></i> About
+                    </a>
+                    <a href="#skills" class="nav-link text-gray-700 hover:text-dark-blue font-medium flex items-center">
+                        <i class="fas fa-cog mr-3 text-primary"></i> Skills
+                    </a>
+                    <a href="#projects" class="nav-link text-gray-700 hover:text-dark-blue font-medium flex items-center">
+                        <i class="fas fa-project-diagram mr-3 text-primary"></i> Projects
+                    </a>
+                    <a href="#experience" class="nav-link text-gray-700 hover:text-dark-blue font-medium flex items-center">
+                        <i class="fas fa-briefcase mr-3 text-primary"></i> Experience
+                    </a>
+                    <a href="#contact" class="nav-link text-gray-700 hover:text-dark-blue font-medium flex items-center">
+                        <i class="fas fa-envelope mr-3 text-primary"></i> Contact
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-purple-800 via-indigo-900 to-blue-900 text-white">
+        <div class="decoration-circle w-64 h-64 bg-primary rounded-full opacity-10 -left-32 -top-32 rotate"></div>
+        <div class="decoration-circle w-96 h-96 bg-light-blue rounded-full opacity-10 -right-48 -bottom-48 rotate"></div>
+        
+        <div class="container mx-auto px-6 py-20 z-10">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-16 md:mb-0 flex justify-center relative">
+                    <div class="profile-container">
+                        <div class="lanyard-cord"></div>
+                        <div class="lanyard-holder"></div>
+                        
+                        <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white shadow-2xl float profile-image-wrapper">
+                            <img src="assets/profil-portofolio.jpg" alt="Profile" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute -bottom-5 -right-5 bg-primary rounded-full p-4 shadow-lg bounce-icon">
+                            <i class="fas fa-code text-white text-2xl"></i>
+                        </div>
+                        
+                        <div class="absolute -top-5 -left-5 w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg tech-icon float-2">
+                            <i class="fab fa-react text-blue-500 text-2xl"></i> </div>
+                        <div class="absolute -bottom-5 -left-10 w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-lg tech-icon float-3">
+                            <i class="fab fa-js text-yellow-400 text-2xl"></i>
+                        </div>
+                        <div class="absolute top-1/4 -right-8 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg tech-icon float">
+                            <i class="fab fa-html5 text-orange-500 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h4 class="text-lg md:text-xl font-medium text-primary mb-4 animate__animated animate__fadeIn">Hello, I'm</h4>
+                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 animate__animated animate__fadeIn animate__delay-1s">John <span class="gradient-text">Doe</span></h1>
+                    <h2 class="text-2xl md:text-3xl font-semibold text-gray-300 mb-6 animate__animated animate__fadeIn animate__delay-2s">Full Stack <span class="text-primary">Developer</span></h2>
+                    <p class="text-lg text-gray-300 mb-8 max-w-lg mx-auto md:mx-0 animate__animated animate__fadeIn animate__delay-3s">
+                        I craft beautiful, functional digital experiences with modern technologies and creative designs.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4 animate__animated animate__fadeIn animate__delay-4s">
+                        <a href="#projects" class="px-8 py-3 bg-primary text-dark-blue font-medium rounded-full hover:bg-yellow-500 transition duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center">
+                            <i class="fas fa-eye mr-2"></i> View My Work
+                        </a>
+                        <a href="#contact" class="px-8 py-3 border-2 border-primary text-primary font-medium rounded-full hover:bg-primary hover:text-white transition duration-300 transform hover:scale-105 flex items-center justify-center">
+                            <i class="fas fa-paper-plane mr-2"></i> Contact Me
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#about" class="text-white hover:text-primary">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    },
+                    "image": {
+                        "src": "img/github.svg",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a nav link is clicked
+        document.querySelectorAll('#mobile-menu .nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        
+    </script>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white relative overflow-hidden">
+        <!-- Section divider -->
+        <div class="divider"></div>
+        
+        <!-- Animated circles decoration -->
+        <div class="decoration-circle w-64 h-64 bg-primary rounded-full opacity-10 -right-32 top-1/4 rotate"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-4">About <span class="gradient-text">Me</span></h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-16">Get to know me better</p>
+            
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/3 mb-12 lg:mb-0 flex justify-center">
+                    <div class="relative">
+                        <img src="assets/profil-portofolio.jpg" alt="Profile" class="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-8 border-primary-light shadow-xl float">
+                        <div class="absolute -bottom-5 -right-5 bg-primary rounded-full p-4 shadow-lg pulse">
+                            <i class="fas fa-heart text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-2/3 lg:pl-12">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Who am I?</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        I'm a passionate <span class="font-medium text-dark-blue">Full Stack Developer</span> with over 5 years of experience creating modern, responsive websites and web applications. 
+                        I specialize in front-end development using <span class="font-medium text-light-blue">React</span> and <span class="font-medium text-green-500">Vue.js</span>, 
+                        but I'm also proficient in back-end technologies like <span class="font-medium text-gray-800">Node.js</span> and <span class="font-medium text-purple-500">PHP</span>.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        My approach combines <span class="font-medium text-dark-blue">technical expertise</span> with <span class="font-medium text-primary">creative design</span> thinking to deliver solutions that are not only 
+                        functional but also visually appealing and user-friendly. I'm constantly learning new technologies 
+                        and techniques to stay at the forefront of web development.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-10">
+                        <div class="bg-primary-light p-4 rounded-lg border-l-4 border-primary transform transition duration-300 hover:scale-105 hover:shadow-md">
+                            <div class="flex items-center">
+                                <div class="bg-primary p-2 rounded-full mr-4">
+                                    <i class="fas fa-laptop-code text-white"></i>
+                                </div>
+                                <h4 class="font-semibold text-gray-800">Web Development</h4>
+                            </div>
+                        </div>
+                        <div class="bg-primary-light p-4 rounded-lg border-l-4 border-primary transform transition duration-300 hover:scale-105 hover:shadow-md">
+                            <div class="flex items-center">
+                                <div class="bg-primary p-2 rounded-full mr-4">
+                                    <i class="fas fa-mobile-alt text-white"></i>
+                                </div>
+                                <h4 class="font-semibold text-gray-800">Responsive Design</h4>
+                            </div>
+                        </div>
+                        <div class="bg-primary-light p-4 rounded-lg border-l-4 border-primary transform transition duration-300 hover:scale-105 hover:shadow-md">
+                            <div class="flex items-center">
+                                <div class="bg-primary p-2 rounded-full mr-4">
+                                    <i class="fas fa-paint-brush text-white"></i>
+                                </div>
+                                <h4 class="font-semibold text-gray-800">UI/UX Design</h4>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#" class="px-6 py-3 bg-primary text-dark-blue font-medium rounded-full hover:bg-yellow-500 transition duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center">
+                            <i class="fas fa-download mr-2"></i> Download CV
+                        </a>
+                        <a href="#skills" class="px-6 py-3 border-2 border-primary text-primary font-medium rounded-full hover:bg-primary hover:text-white transition duration-300 transform hover:scale-105 flex items-center justify-center">
+                            <i class="fas fa-cog mr-2"></i> View Skills
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Back to top button -->
+        <div class="flex justify-center mt-12">
+            <a href="#home" class="back-to-top px-6 py-3 bg-primary text-white font-medium rounded-full hover:bg-yellow-600 transition duration-300 transform hover:scale-105 shadow-lg flex items-center">
+                <i class="fas fa-arrow-up mr-2"></i> Back to Top
+            </a>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-gray-50 relative overflow-hidden">
+        <!-- Animated circles decoration -->
+        <div class="decoration-circle w-96 h-96 bg-light-blue rounded-full opacity-10 -left-48 top-1/4 rotate"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-4">My <span class="gradient-text">Skills</span></h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-16">Technologies I work with</p>
+            
+            <!-- Skill bubbles grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                <!-- HTML -->
+                <div class="skill-bubble bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center transform transition-all duration-300 hover:shadow-lg">
+                    <div class="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fab fa-html5 text-orange-500 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">HTML5</h4>
+                </div>
+                
+                <!-- CSS -->
+                <div class="skill-bubble bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center transform transition-all duration-300 hover:shadow-lg">
+                    <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fab fa-css3-alt text-blue-500 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">CSS3</h4>
+                </div>
+                
+                <!-- JavaScript -->
+                <div class="skill-bubble bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center transform transition-all duration-300 hover:shadow-lg">
+                    <div class="w-16 h-16 bg-yellow-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fab fa-js text-yellow-400 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">JavaScript</h4>
+                </div>
+                
+                <!-- React -->
+                <div class="skill-bubble bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center transform transition-all duration-300 hover:shadow-lg">
+                    <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fab fa-react text-blue-400 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">React</h4>
+                </div>
+                
+                <!-- Node.js -->
+                <div class="skill-bubble bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center transform transition-all duration-300 hover:shadow-lg">
+                    <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fab fa-node-js text-green-500 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">Node.js</h4>
+                </div>
+                
+                <!-- PHP -->
+                <div class="skill-bubble bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center transform transition-all duration-300 hover:shadow-lg">
+                    <div class="w-16 h-16 bg-purple-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fab fa-php text-purple-500 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">PHP</h4>
+                </div>
+                
+                <!-- Laravel -->
+                <div class="skill-bubble bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center transform transition-all duration-300 hover:shadow-lg">
+                    <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fab fa-laravel text-red-500 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">Laravel</h4>
+                </div>
+                
+                <!-- Git -->
+                <div class="skill-bubble bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center transform transition-all duration-300 hover:shadow-lg">
+                    <div class="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fab fa-git-alt text-orange-600 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">Git</h4>
+                </div>
+                
+                <!-- GitHub -->
+                <div class="skill-bubble bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center transform transition-all duration-300 hover:shadow-lg">
+                    <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fab fa-github text-gray-800 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">GitHub</h4>
+                </div>
+                
+                <!-- Tailwind -->
+                <div class="skill-bubble bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center transform transition-all duration-300 hover:shadow-lg">
+                    <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-wind text-blue-400 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">Tailwind</h4>
+                </div>
+                
+                <!-- Figma -->
+                <div class="skill-bubble bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center transform transition-all duration-300 hover:shadow-lg">
+                    <div class="w-16 h-16 bg-purple-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fab fa-figma text-purple-600 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">Figma</h4>
+                </div>
+                
+                <!-- ClickUp -->
+                <div class="skill-bubble bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center transform transition-all duration-300 hover:shadow-lg">
+                    <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-tasks text-blue-500 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">ClickUp</h4>
+                </div>
+                
+                <!-- Notion -->
+                <div class="skill-bubble bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center transform transition-all duration-300 hover:shadow-lg">
+                    <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-book text-gray-800 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">Notion</h4>
+                </div>
+                
+                <!-- Flutter -->
+                <div class="skill-bubble bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center transform transition-all duration-300 hover:shadow-lg">
+                    <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-mobile-alt text-blue-400 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">Flutter</h4>
+                </div>
+                
+                <!-- Express -->
+                <div class="skill-bubble bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center transform transition-all duration-300 hover:shadow-lg">
+                    <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-server text-gray-600 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800">Express</h4>
+                </div>
+            </div>
+            
+            <div class="flex justify-center mt-12">
+                <a href="#home" class="back-to-top px-6 py-3 bg-primary text-white font-medium rounded-full hover:bg-yellow-600 transition duration-300 transform hover:scale-105 shadow-lg flex items-center">
+                    <i class="fas fa-arrow-up mr-2"></i> Back to Top
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-gray-100 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-white to-gray-100 z-0"></div>
+    <div class="divider"></div>
+    
+    <div class="decoration-circle w-64 h-64 bg-primary rounded-full opacity-10 -right-32 top-1/4 rotate z-0"></div>
+    
+    <div class="container mx-auto px-6 relative z-10">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-4 animate__animated animate__fadeInDown">My <span class="gradient-text">Projects</span></h2>
+        <p class="text-center text-gray-600 max-w-2xl mx-auto mb-16 animate__animated animate__fadeInUp animate__delay-0.5s">Take a look at some of my recent work and creations.</p>
+        
+        <div class="projects-container relative">
+            <div class="flex overflow-x-scroll pb-10 scrollbar-hide snap-x snap-mandatory" id="projects-slider">
+                <div class="flex space-x-8 px-4 py-2">
+                    <div class="project-card w-80 flex-shrink-0 bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 relative transform hover:-translate-y-2 animate-slide-in-up" style="animation-delay: 0.1s;">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="assets/profil-portofolio.jpg" alt="Project 1" class="w-full h-full object-cover project-image">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                            <div class="absolute bottom-4 left-4">
+                                <h3 class="text-xl font-bold text-white">E-commerce Platform</h3>
+                                <p class="text-gray-200 text-sm">Full-stack solution</p>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 project-overlay flex items-center justify-center transition-opacity duration-300">
+                                <button class="view-project-btn bg-white text-primary px-4 py-2 rounded-full text-sm font-semibold hover:bg-primary hover:text-white transition-colors duration-300" data-project-id="ecommerce">View Details</button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-700 mb-4 text-sm">A comprehensive e-commerce platform featuring product management, secure payments, and user authentication.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="tech-icon px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold flex items-center">
+                                    <i class="fab fa-react mr-1"></i> React
+                                </span>
+                                <span class="tech-icon px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold flex items-center">
+                                    <i class="fab fa-node-js mr-1"></i> Node.js
+                                </span>
+                                <span class="tech-icon px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold flex items-center">
+                                    <i class="fas fa-database mr-1"></i> MongoDB
+                                </span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <a href="https://github.com/SiAnakAlim/Portofolio" target="_blank" class="text-gray-500 hover:text-primary transition-colors duration-300 text-lg">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card w-80 flex-shrink-0 bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 relative transform hover:-translate-y-2 animate-slide-in-up" style="animation-delay: 0.2s;">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="assets/profil-portofolio.jpg" alt="Project 2" class="w-full h-full object-cover project-image">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                            <div class="absolute bottom-4 left-4">
+                                <h3 class="text-xl font-bold text-white">Task Management App</h3>
+                                <p class="text-gray-200 text-sm">Productivity tool</p>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 project-overlay flex items-center justify-center transition-opacity duration-300">
+                                <button class="view-project-btn bg-white text-primary px-4 py-2 rounded-full text-sm font-semibold hover:bg-primary hover:text-white transition-colors duration-300" data-project-id="task-manager">View Details</button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-700 mb-4 text-sm">A collaborative task management application with drag-and-drop interface and team features.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="tech-icon px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold flex items-center">
+                                    <i class="fab fa-vuejs mr-1"></i> Vue.js
+                                </span>
+                                <span class="tech-icon px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold flex items-center">
+                                    <i class="fab fa-laravel mr-1"></i> Laravel
+                                </span>
+                                <span class="tech-icon px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-semibold flex items-center">
+                                    <i class="fas fa-wind mr-1"></i> Tailwind CSS
+                                </span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <a href="https://github.com/SiAnakAlim/Portofolio" target="_blank" class="text-gray-500 hover:text-primary transition-colors duration-300 text-lg">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card w-80 flex-shrink-0 bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 relative transform hover:-translate-y-2 animate-slide-in-up" style="animation-delay: 0.3s;">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="assets/profil-portofolio.jpg" alt="Project 3" class="w-full h-full object-cover project-image">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                            <div class="absolute bottom-4 left-4">
+                                <h3 class="text-xl font-bold text-white">Weather Dashboard</h3>
+                                <p class="text-gray-200 text-sm">Real-time data</p>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 project-overlay flex items-center justify-center transition-opacity duration-300">
+                                <button class="view-project-btn bg-white text-primary px-4 py-2 rounded-full text-sm font-semibold hover:bg-primary hover:text-white transition-colors duration-300" data-project-id="weather-app">View Details</button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-700 mb-4 text-sm">Weather application with real-time data, 5-day forecast, and location-based services.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="tech-icon px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold flex items-center">
+                                    <i class="fab fa-js mr-1"></i> JavaScript
+                                </span>
+                                <span class="tech-icon px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold flex items-center">
+                                    <i class="fas fa-cloud mr-1"></i> API
+                                </span>
+                                <span class="tech-icon px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold flex items-center">
+                                    <i class="fab fa-bootstrap mr-1"></i> Bootstrap
+                                </span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <a href="https://github.com/SiAnakAlim/Portofolio" target="_blank" class="text-gray-500 hover:text-primary transition-colors duration-300 text-lg">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card w-80 flex-shrink-0 bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 relative transform hover:-translate-y-2 animate-slide-in-up" style="animation-delay: 0.4s;">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="assets/profil-portofolio.jpg" alt="Project 4" class="w-full h-full object-cover project-image">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                            <div class="absolute bottom-4 left-4">
+                                <h3 class="text-xl font-bold text-white">Portfolio Website</h3>
+                                <p class="text-gray-200 text-sm">Personal branding</p>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 project-overlay flex items-center justify-center transition-opacity duration-300">
+                                <button class="view-project-btn bg-white text-primary px-4 py-2 rounded-full text-sm font-semibold hover:bg-primary hover:text-white transition-colors duration-300" data-project-id="portfolio-site">View Details</button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-700 mb-4 text-sm">A modern, responsive portfolio website with engaging animations and a seamless user experience.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="tech-icon px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-semibold flex items-center">
+                                    <i class="fab fa-html5 mr-1"></i> HTML
+                                </span>
+                                <span class="tech-icon px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold flex items-center">
+                                    <i class="fab fa-css3-alt mr-1"></i> CSS
+                                </span>
+                                <span class="tech-icon px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold flex items-center">
+                                    <i class="fab fa-js mr-1"></i> JavaScript
+                                </span>
+                                <span class="tech-icon px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-semibold flex items-center">
+                                    <i class="fas fa-wind mr-1"></i> Tailwind CSS
+                                </span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <a href="https://github.com/SiAnakAlim/Portofolio" target="_blank" class="text-gray-500 hover:text-primary transition-colors duration-300 text-lg">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card w-80 flex-shrink-0 bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 relative transform hover:-translate-y-2 animate-slide-in-up" style="animation-delay: 0.5s;">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="assets/profil-portofolio.jpg" alt="Project 5" class="w-full h-full object-cover project-image">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                            <div class="absolute bottom-4 left-4">
+                                <h3 class="text-xl font-bold text-white">Social Media Clone</h3>
+                                <p class="text-gray-200 text-sm">Interactive platform</p>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 project-overlay flex items-center justify-center transition-opacity duration-300">
+                                <button class="view-project-btn bg-white text-primary px-4 py-2 rounded-full text-sm font-semibold hover:bg-primary hover:text-white transition-colors duration-300" data-project-id="social-clone">View Details</button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-700 mb-4 text-sm">A mini social media application with user profiles, posts, likes, and comment functionalities.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="tech-icon px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-semibold flex items-center">
+                                    <i class="fab fa-angular mr-1"></i> Angular
+                                </span>
+                                <span class="tech-icon px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold flex items-center">
+                                    <i class="fab fa-firebase mr-1"></i> Firebase
+                                </span>
+                                <span class="tech-icon px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold flex items-center">
+                                    <i class="fas fa-code-branch mr-1"></i> Git
+                                </span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <a href="https://github.com/SiAnakAlim/Portofolio" target="_blank" class="text-gray-500 hover:text-primary transition-colors duration-300 text-lg">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-white p-3 rounded-full shadow-md hover:bg-primary hover:text-white transition duration-300 z-10 opacity-75 hover:opacity-100" id="prev-project">
+                <i class="fas fa-chevron-left text-xl"></i>
+            </button>
+            <button class="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white p-3 rounded-full shadow-md hover:bg-primary hover:text-white transition duration-300 z-10 opacity-75 hover:opacity-100" id="next-project">
+                <i class="fas fa-chevron-right text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="flex justify-center mt-12 animate__animated animate__fadeInUp animate__delay-0.8s">
+            <a href="#home" class="back-to-top px-6 py-3 bg-primary text-dark-blue font-medium rounded-full hover:bg-yellow-600 transition duration-300 transform hover:scale-105 shadow-lg flex items-center">
+                <i class="fas fa-arrow-up mr-2"></i> Back to Top
+            </a>
+        </div>
+    </div>
+</section>
+
+<div id="project-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <button class="modal-close-button" id="close-modal">&times;</button>
+        <img id="modal-project-image" src="" alt="Project Image" class="w-full h-64 object-cover rounded-lg mb-4">
+        <h3 id="modal-project-title" class="text-2xl font-bold text-gray-800 mb-2"></h3>
+        <p id="modal-project-description" class="text-gray-700 mb-4"></p>
+        <div id="modal-project-tech" class="flex flex-wrap gap-2 mb-4"></div>
+        <a id="modal-project-github" href="#" target="_blank" class="inline-flex items-center text-blue-600 hover:underline font-semibold mt-2">
+            <i class="fab fa-github mr-2"></i> View on GitHub
+        </a>
+    </div>
+</div>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-gray-50 relative overflow-hidden">
+        <!-- Animated circles decoration -->
+        <div class="decoration-circle w-96 h-96 bg-light-blue rounded-full opacity-10 -left-48 top-1/4 rotate"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-4">My <span class="gradient-text">Experience</span></h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-16">Education and professional journey</p>
+            
+            <div class="max-w-3xl mx-auto">
+                <!-- Timeline -->
+                <div class="relative">
+                    <!-- Timeline line -->
+                    <div class="hidden md:block absolute left-1/2 h-full w-1 bg-gradient-to-b from-primary to-light-blue transform -translate-x-1/2"></div>
+                    
+                    <!-- Timeline items -->
+                    <div class="space-y-8">
+                        <!-- Experience 1 -->
+                        <div class="relative flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 mb-8 md:mb-0 md:text-right">
+                                <div class="bg-white p-6 rounded-xl shadow-md">
+                                    <h3 class="text-xl font-bold text-gray-800">Senior Web Developer</h3>
+                                    <p class="text-primary font-medium">Tech Solutions Inc.</p>
+                                    <p class="text-gray-600">2020 - Present</p>
+                                    <p class="text-gray-600 mt-2">
+                                        Lead development team, architect solutions, and implement complex features for enterprise clients.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="hidden md:block w-8 h-8 bg-primary rounded-full absolute left-1/2 transform -translate-x-1/2 border-4 border-white shadow"></div>
+                            <div class="md:w-1/2 md:pl-12">
+                                <!-- Empty on left side -->
+                            </div>
+                        </div>
+                        
+                        <!-- Experience 2 -->
+                        <div class="relative flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 mb-8 md:mb-0 md:text-right order-2 md:order-1">
+                                <!-- Empty on left side -->
+                            </div>
+                            <div class="hidden md:block w-8 h-8 bg-primary rounded-full absolute left-1/2 transform -translate-x-1/2 border-4 border-white shadow"></div>
+                            <div class="md:w-1/2 md:pl-12 order-1 md:order-2">
+                                <div class="bg-white p-6 rounded-xl shadow-md">
+                                    <h3 class="text-xl font-bold text-gray-800">Web Developer</h3>
+                                    <p class="text-primary font-medium">Digital Creative Agency</p>
+                                    <p class="text-gray-600">2018 - 2020</p>
+                                    <p class="text-gray-600 mt-2">
+                                        Developed custom websites and web applications for diverse clients across multiple industries.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Education 1 -->
+                        <div class="relative flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 mb-8 md:mb-0 md:text-right">
+                                <div class="bg-white p-6 rounded-xl shadow-md">
+                                    <h3 class="text-xl font-bold text-gray-800">Master's in Computer Science</h3>
+                                    <p class="text-primary font-medium">University of Technology</p>
+                                    <p class="text-gray-600">2018 - 2020</p>
+                                    <p class="text-gray-600 mt-2">
+                                        Specialized in Artificial Intelligence and Machine Learning with focus on web applications.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="hidden md:block w-8 h-8 bg-primary rounded-full absolute left-1/2 transform -translate-x-1/2 border-4 border-white shadow"></div>
+                            <div class="md:w-1/2 md:pl-12">
+                                <!-- Empty on left side -->
+                            </div>
+                        </div>
+                        
+                        <!-- Education 2 -->
+                        <div class="relative flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 mb-8 md:mb-0 md:text-right order-2 md:order-1">
+                                <!-- Empty on left side -->
+                            </div>
+                            <div class="hidden md:block w-8 h-8 bg-primary rounded-full absolute left-1/2 transform -translate-x-1/2 border-4 border-white shadow"></div>
+                            <div class="md:w-1/2 md:pl-12 order-1 md:order-2">
+                                <div class="bg-white p-6 rounded-xl shadow-md">
+                                    <h3 class="text-xl font-bold text-gray-800">Bachelor's in IT</h3>
+                                    <p class="text-primary font-medium">State University</p>
+                                    <p class="text-gray-600">2014 - 2018</p>
+                                    <p class="text-gray-600 mt-2">
+                                        Focused on Software Engineering and Web Development. Graduated with honors.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-center mt-12">
+                <a href="#home" class="back-to-top px-6 py-3 bg-primary text-white font-medium rounded-full hover:bg-yellow-600 transition duration-300 transform hover:scale-105 shadow-lg flex items-center">
+                    <i class="fas fa-arrow-up mr-2"></i> Back to Top
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-dark-blue text-white relative overflow-hidden">
+        <!-- Section divider -->
+        <div class="divider"></div>
+        
+        <!-- Animated circles decoration -->
+        <div class="decoration-circle w-64 h-64 bg-primary rounded-full opacity-10 -right-32 top-1/4 rotate"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Get In <span class="gradient-text">Touch</span></h2>
+            <p class="text-center text-gray-300 max-w-2xl mx-auto mb-16">Have a project in mind or want to discuss potential opportunities?</p>
+            
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-1/2">
+                    <div class="glass p-8 rounded-xl h-full">
+                        <h3 class="text-xl font-bold mb-6">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-primary p-3 rounded-full mr-4">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Email</h4>
+                                    <a href="mailto:your.email@example.com" class="text-gray-300 hover:text-primary transition">your.email@example.com</a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-primary p-3 rounded-full mr-4">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Phone</h4>
+                                    <a href="tel:+1234567890" class="text-gray-300 hover:text-primary transition">+1 (234) 567-890</a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-primary p-3 rounded-full mr-4">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Location</h4>
+                                    <p class="text-gray-300">San Francisco, CA</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-10">
+                            <h4 class="font-semibold mb-4">Follow Me</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-12 h-12 bg-white bg-opacity-10 rounded-full flex items-center justify-center text-white hover:bg-primary hover:text-dark-blue transition">
+                                    <i class="fab fa-github text-xl"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 bg-white bg-opacity-10 rounded-full flex items-center justify-center text-white hover:bg-primary hover:text-dark-blue transition">
+                                    <i class="fab fa-linkedin-in text-xl"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 bg-white bg-opacity-10 rounded-full flex items-center justify-center text-white hover:bg-primary hover:text-dark-blue transition">
+                                    <i class="fab fa-twitter text-xl"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 bg-white bg-opacity-10 rounded-full flex items-center justify-center text-white hover:bg-primary hover:text-dark-blue transition">
+                                    <i class="fab fa-instagram text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="glass p-8 rounded-xl h-full">
+                        <h3 class="text-xl font-bold mb-6">Send Me a Message</h3>
+                        
+                        <form id="contact-form">
+                            <div class="mb-6">
+                                <label for="name" class="block text-gray-300 font-medium mb-2">Your Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 bg-white bg-opacity-10 rounded-lg border border-gray-600 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary text-white form-input" required>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="email" class="block text-gray-300 font-medium mb-2">Your Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 bg-white bg-opacity-10 rounded-lg border border-gray-600 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary text-white form-input" required>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="subject" class="block text-gray-300 font-medium mb-2">Subject</label>
+                                <input type="text" id="subject" class="w-full px-4 py-3 bg-white bg-opacity-10 rounded-lg border border-gray-600 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary text-white form-input" required>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="message" class="block text-gray-300 font-medium mb-2">Your Message</label>
+                                <textarea id="message" rows="5" class="w-full px-4 py-3 bg-white bg-opacity-10 rounded-lg border border-gray-600 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary text-white form-input" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full px-6 py-3 bg-primary text-dark-blue font-medium rounded-lg hover:bg-yellow-500 transition duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center">
+                                <i class="fas fa-paper-plane mr-2"></i> Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-center mt-12">
+                <a href="#home" class="back-to-top px-6 py-3 bg-primary text-dark-blue font-medium rounded-full hover:bg-yellow-500 transition duration-300 transform hover:scale-105 shadow-lg flex items-center">
+                    <i class="fas fa-arrow-up mr-2"></i> Back to Top
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="text-2xl font-bold flex items-center">
+                        <i class="fas fa-code text-primary mr-2"></i>
+                        <span class="gradient-text">PortfolioPro</span>
+                    </div>
+                    <p class="text-gray-400 mt-2">© 2023 All Rights Reserved</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-primary transition">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+    // JavaScript untuk fungsionalitas
+    const projectsSlider = document.getElementById('projects-slider');
+    const prevButton = document.getElementById('prev-project');
+    const nextButton = document.getElementById('next-project');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    let scrollAmount = 0;
+    const cardWidth = projectCards[0].offsetWidth + 32; // card width + space-x-8 (32px)
+
+    nextButton.addEventListener('click', () => {
+        scrollAmount += cardWidth;
+        projectsSlider.scrollTo({
+            left: scrollAmount,
+            behavior: 'smooth'
+        });
+        updateScrollButtons();
+    });
+
+    prevButton.addEventListener('click', () => {
+        scrollAmount -= cardWidth;
+        projectsSlider.scrollTo({
+            left: scrollAmount,
+            behavior: 'smooth'
+        });
+        updateScrollButtons();
+    });
+
+    // Update button visibility based on scroll position
+    function updateScrollButtons() {
+        if (projectsSlider.scrollLeft === 0) {
+            prevButton.classList.add('opacity-50', 'cursor-not-allowed');
+            prevButton.classList.remove('hover:bg-primary', 'hover:text-white', 'hover:opacity-100');
+        } else {
+            prevButton.classList.remove('opacity-50', 'cursor-not-allowed');
+            prevButton.classList.add('hover:bg-primary', 'hover:text-white', 'hover:opacity-100');
+        }
+
+        if (projectsSlider.scrollLeft + projectsSlider.clientWidth >= projectsSlider.scrollWidth) {
+            nextButton.classList.add('opacity-50', 'cursor-not-allowed');
+            nextButton.classList.remove('hover:bg-primary', 'hover:text-white', 'hover:opacity-100');
+        } else {
+            nextButton.classList.remove('opacity-50', 'cursor-not-allowed');
+            nextButton.classList.add('hover:bg-primary', 'hover:text-white', 'hover:opacity-100');
+        }
+    }
+
+    // Initialize button state
+    projectsSlider.addEventListener('scroll', updateScrollButtons);
+    updateScrollButtons(); // Initial check
+
+
+    // MODAL LOGIC
+    const projectModal = document.getElementById('project-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const modalProjectImage = document.getElementById('modal-project-image');
+    const modalProjectTitle = document.getElementById('modal-project-title');
+    const modalProjectDescription = document.getElementById('modal-project-description');
+    const modalProjectTech = document.getElementById('modal-project-tech');
+    const modalProjectGithub = document.getElementById('modal-project-github');
+
+    // Data contoh untuk proyek (Anda bisa mengambil ini dari API di produksi)
+    const projectsData = {
+        "ecommerce": {
+            title: "E-commerce Platform",
+            description: "A robust full-stack e-commerce solution with dynamic product listings, user authentication, shopping cart features, and secure payment gateway integration. Built with modern web technologies for scalability and performance.",
+            image: "assets/profil-portofolio.jpg", // Ganti dengan gambar proyek spesifik jika ada
+            tech: ["React", "Node.js", "MongoDB", "Express.js", "Redux"],
+            github: "https://github.com/SiAnakAlim/Portofolio"
+        },
+        "task-manager": {
+            title: "Task Management App",
+            description: "An intuitive task management application designed for individuals and teams to streamline workflows. Features include drag-and-drop task reordering, due date reminders, team collaboration, and real-time updates.",
+            image: "assets/profil-portofolio.jpg",
+            tech: ["Vue.js", "Laravel", "Tailwind CSS", "MySQL"],
+            github: "https://github.com/SiAnakAlim/Portofolio"
+        },
+        "weather-app": {
+            title: "Weather Dashboard",
+            description: "A sleek weather dashboard providing real-time weather conditions, a 5-day forecast, and location-based weather updates. Integrates with various weather APIs for accurate and up-to-date information.",
+            image: "assets/profil-portofolio.jpg",
+            tech: ["JavaScript", "HTML5", "CSS3", "Weather API", "Bootstrap"],
+            github: "https://github.com/SiAnakAlim/Portofolio"
+        },
+        "portfolio-site": {
+            title: "Personal Portfolio Website",
+            description: "This very website! A dynamic and responsive personal portfolio crafted to showcase skills, projects, and experience. Features include smooth scrolling, interactive elements, and a clean, modern design.",
+            image: "assets/profil-portofolio.jpg",
+            tech: ["HTML5", "CSS3", "JavaScript", "Tailwind CSS", "Animate.css"],
+            github: "https://github.com/SiAnakAlim/Portofolio"
+        },
+        "social-clone": {
+            title: "Social Media Clone",
+            description: "A lightweight social media application clone demonstrating core functionalities like user profiles, posting, liking, commenting, and following. Designed for interactive user experience.",
+            image: "assets/profil-portofolio.jpg",
+            tech: ["Angular", "Firebase", "TypeScript", "SCSS"],
+            github: "https://github.com/SiAnakAlim/Portofolio"
+        }
+    };
+
+    document.querySelectorAll('.view-project-btn').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const projectId = event.target.dataset.projectId;
+            const project = projectsData[projectId];
+
+            if (project) {
+                modalProjectImage.src = project.image;
+                modalProjectTitle.textContent = project.title;
+                modalProjectDescription.textContent = project.description;
+                modalProjectGithub.href = project.github;
+
+                // Clear previous tech tags
+                modalProjectTech.innerHTML = '';
+                project.tech.forEach(tech => {
+                    const span = document.createElement('span');
+                    span.className = 'px-3 py-1 bg-gray-200 text-gray-800 rounded-full text-xs font-semibold';
+                    span.textContent = tech;
+                    modalProjectTech.appendChild(span);
+                });
+
+                projectModal.classList.remove('hidden');
+            }
+        });
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+        projectModal.classList.add('hidden');
+    });
+
+    // Close modal if clicked outside
+    projectModal.addEventListener('click', (event) => {
+        if (event.target === projectModal) {
+            projectModal.classList.add('hidden');
+        }
+    });
+
+    // Close modal with Esc key
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !projectModal.classList.contains('hidden')) {
+            projectModal.classList.add('hidden');
+        }
+    });
+</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize particles.js
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#f8d254"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.3,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#f8d254",
+                        "opacity": 0.2,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 140,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('open');
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (mobileMenu.classList.contains('open')) {
+                        mobileMenu.classList.remove('open');
+                    }
+                });
+            });
+            
+            // Back to top button visibility
+            const backToTopButtons = document.querySelectorAll('.back-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopButtons.forEach(button => {
+                        button.classList.add('active');
+                    });
+                } else {
+                    backToTopButtons.forEach(button => {
+                        button.classList.remove('active');
+                    });
+                }
+            });
+            
+            // Projects slider
+            const projectsSlider = document.getElementById('projects-slider');
+            const prevButton = document.getElementById('prev-project');
+            const nextButton = document.getElementById('next-project');
+            
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            
+            projectsSlider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                projectsSlider.style.cursor = 'grabbing';
+                startX = e.pageX - projectsSlider.offsetLeft;
+                scrollLeft = projectsSlider.scrollLeft;
+            });
+            
+            projectsSlider.addEventListener('mouseleave', () => {
+                isDown = false;
+                projectsSlider.style.cursor = 'grab';
+            });
+            
+            projectsSlider.addEventListener('mouseup', () => {
+                isDown = false;
+                projectsSlider.style.cursor = 'grab';
+            });
+            
+            projectsSlider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - projectsSlider.offsetLeft;
+                const walk = (x - startX) * 2;
+                projectsSlider.scrollLeft = scrollLeft - walk;
+            });
+            
+            prevButton.addEventListener('click', () => {
+                projectsSlider.scrollBy({
+                    left: -300,
+                    behavior: 'smooth'
+                });
+            });
+            
+            nextButton.addEventListener('click', () => {
+                projectsSlider.scrollBy({
+                    left: 300,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Contact form submission
+            const contactForm = document.getElementById('contact-form');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                // Here you would typically send the form data to a server
+                // For this example, we'll just show an alert
+                alert(`Thank you, ${name}! Your message has been sent. I'll get back to you soon.`);
+                
+                // Reset form
+                contactForm.reset();
+            });
+            
+            // Add animation classes when elements come into view
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.animate-on-scroll');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementPosition < windowHeight - 100) {
+                        element.classList.add('animate__animated', 'animate__fadeInUp');
+                    }
+                });
+            };
+            
+            // Run once on page load
+            animateOnScroll();
+            
+            // Run on scroll
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Add floating particles to hero section
+            const heroSection = document.querySelector('#home');
+            const particlesContainer = document.createElement('div');
+            particlesContainer.id = 'particles-js';
+            particlesContainer.style.position = 'absolute';
+            particlesContainer.style.top = '0';
+            particlesContainer.style.left = '0';
+            particlesContainer.style.width = '100%';
+            particlesContainer.style.height = '100%';
+            particlesContainer.style.zIndex = '0';
+            heroSection.appendChild(particlesContainer);
+        });
+    </script>
+</body>
+</html>
