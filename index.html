@@ -325,24 +325,29 @@ h2::after {
     }
 
     /* Typewriter Effect */
-   .typewriter {
-        display: inline-block;
-        position: relative;
-        vertical-align: middle; /* Added to align with the text */
-    }
+    .typewriter {
+            display: inline-block;
+            position: relative;
+        }
 
-    .typewriter::after {
-        content: '|';
-        position: absolute;
-        right: -5px;
-        color: #FFD700;
-        animation: blink 1s infinite;
-    }
+        .typewriter::after {
+            content: '|';
+            position: absolute;
+            right: -8px;
+            top: 0;
+            color: #FFD700;
+            animation: blink 1s infinite;
+        }
 
-    @keyframes blink {
-        0%, 50% { opacity: 1; }
-        51%, 100% { opacity: 0; }
-    }
+     /* Blink animation */
+        @keyframes blink {
+            0%, 50% {
+                opacity: 1;
+            }
+            51%, 100% {
+                opacity: 0;
+            }
+        }
 
     /* Profile container adjustments */
     .profile-container {
@@ -539,11 +544,11 @@ h2::after {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 50; /* Higher than nav */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
@@ -564,6 +569,14 @@ h2::after {
     transform: scale(0.9);
     transition: transform 0.3s ease;
     position: relative;
+    z-index: 60;
+}
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
 }
 
 .modal-overlay.active .modal-content {
@@ -1284,617 +1297,835 @@ h2::after {
         font-size: 2rem;
     }
 }
-/* Projects Section - Ultra Dynamic Version */
-/* Projects Section */
-/* Projects Section */
-#projects {
-    position: relative;
-    padding: 120px 0;
-    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
-    overflow: hidden; /* Penting untuk ikon latar belakang */
-}
-
-.projects-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 30px;
-    position: relative;
-    z-index: 2; /* Pastikan konten di atas ikon latar belakang */
-}
-
-.projects-header {
-    text-align: center;
-    margin-bottom: 60px;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.projects-header h2 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #1e293b;
-    margin-bottom: 15px;
-    background: linear-gradient(90deg, #8b5cf6, #ec4899);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.projects-header p {
-    font-size: 1.1rem;
-    color: #64748b;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.projects-slider {
-    position: relative;
-    padding: 40px 0 80px;
-    overflow: hidden;
-}
-
-.projects-track {
-    display: flex;
-    gap: 30px;
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform;
-    padding: 20px 10px;
-    margin-bottom: 20px;
-    cursor: grab; /* Menambahkan cursor grab */
-}
-
-.project-card {
-    width: calc(33.333% - 20px); /* (3 cards per view - 2 gaps) / 3 */
-    min-width: 300px; /* Memberikan min-width agar tidak terlalu kecil di layar sempit */
-    flex: 0 0 auto;
-    background: white;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-    cursor: pointer;
-    opacity: 0;
-    transform: translateY(50px) rotate(2deg);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.project-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, #8b5cf6, #ec4899);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.project-card:hover {
-    transform: translateY(-15px) rotate(0deg) scale(1.03);
-    box-shadow: 0 30px 60px rgba(139, 92, 246, 0.3);
-    z-index: 5;
-}
-
-.project-card:hover::before {
-    opacity: 1;
-}
-
-.project-image {
-    height: 350px;
-    overflow: hidden;
-    position: relative;
-}
-
-.project-image::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 40%;
-    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.project-card:hover .project-image::after {
-    opacity: 1;
-}
-
-.project-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.project-card:hover .project-image img {
-    transform: scale(1.1);
-}
-
-.project-content {
-    padding: 25px;
-    background: white;
-    position: relative;
-    transition: all 0.4s ease;
-}
-
-.project-card:hover .project-content {
-    transform: translateY(-5px);
-}
-
-.project-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #1e293b;
-    margin-bottom: 10px;
-    transition: all 0.3s ease;
-}
-
-.project-card:hover .project-title {
-    color: #8b5cf6;
-}
-
-.project-subtitle {
-    font-size: 0.95rem;
-    color: #8b5cf6;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
-.project-description {
-    color: #64748b;
-    margin-bottom: 20px;
-    line-height: 1.6;
-    height: 60px; /* Fixed height, consider overflow: hidden; */
-    overflow: hidden; /* Agar deskripsi tidak tumpah */
-}
-
-.project-tech {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.tech-badge {
-    background: #f3f4f6;
-    color: #1e293b;
-    padding: 6px 14px;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.project-card:hover .tech-badge {
-    background: rgba(139, 92, 246, 0.1);
-    color: #8b5cf6;
-}
-
-/* Dots Navigation */
-.dots-container {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 30px;
-}
-
-.dot {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: #cbd5e1;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.dot.active {
-    background: #8b5cf6;
-    transform: scale(1.2);
-}
-
-.dot:hover {
-    background: #8b5cf6;
-}
-
-.dot::after {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: -8px;
-    right: -8px;
-    bottom: -8px;
-}
-
-/* Modal Styles */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
-}
-
-.modal-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.modal-content {
-    background: white;
-    border-radius: 20px;
-    max-width: 900px;
-    width: 90%;
-    max-height: 90vh;
-    overflow-y: auto; /* Memungkinkan scrolling jika konten modal terlalu panjang */
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
-    position: relative;
-    display: flex; /* Menggunakan flexbox untuk layout modal content */
-    flex-direction: column;
-}
-
-.modal-overlay.active .modal-content {
-    transform: scale(1);
-}
-
-.modal-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #64748b;
-    transition: color 0.3s ease;
-    z-index: 10;
-    background: rgba(255,255,255,0.8);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-close:hover {
-    color: #8b5cf6;
-    background: white;
-}
-
-/* Gallery Styles - Perbaikan utama di sini */
-.modal-gallery {
-    position: relative;
-    height: 250px;
-    overflow: hidden; /* Penting untuk menggunting gambar saat transform */
-    background-color: #000; /* Latar belakang hitam untuk modal galeri */
-}
-
-.modal-image-container {
-    display: flex; /* Ini kunci untuk slider horizontal */
-    height: 100%;
-    width: 100%; /* Memastikan kontainer mengambil seluruh lebar */
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* Animasi geser */
-}
-
-.modal-image {
-    width: 100%; /* Setiap gambar mengambil 100% lebar kontainer */
-    height: 100%;
-    object-fit: contain; /* Ini akan menampilkan seluruh gambar, baik horizontal maupun vertikal */
-    flex-shrink: 0; /* Penting! Mencegah gambar menyusut */
-    /* opacity dan position: absolute dihilangkan dari sini untuk pendekatan slider translateX */
-}
-
-/* Ini untuk efek fade-in/fade-out jika Anda ingin mempertahankan itu (opsional) */
-/* .modal-image { opacity: 0; transition: opacity 0.5s ease; }
-.modal-image.active { opacity: 1; } */
-
-
-.gallery-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    background: rgba(255,255,255,0.8);
-    border: none;
-    border-radius: 50%;
-    color: #8b5cf6;
-    font-size: 1.2rem;
-    cursor: pointer;
-    z-index: 5;
-    transition: all 0.3s ease;
-    display: flex; /* Menggunakan flex untuk ikon di tengah */
-    align-items: center;
-    justify-content: center;
-}
-
-.gallery-nav:hover {
-    background: white;
-    transform: translateY(-50%) scale(1.1);
-}
-
-.gallery-prev {
-    left: 20px;
-}
-
-.gallery-next {
-    right: 20px;
-}
-
-.gallery-dots {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    z-index: 5;
-}
-
-.gallery-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.5);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.gallery-dot.active {
-    background: white;
-    transform: scale(1.2);
-}
-
-/* Modal Body */
-.modal-body {
-    padding: 30px;
-}
-
-.modal-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #1e293b;
-    margin-bottom: 10px;
-}
-
-.modal-subtitle {
-    font-size: 1.1rem;
-    color: #8b5cf6;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
-.modal-description {
-    color: #64748b;
-    margin-bottom: 20px;
-    line-height: 1.6;
-}
-
-.modal-tech {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 25px;
-}
-
-.modal-links {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 30px;
-    flex-wrap: wrap; /* Untuk responsivitas link */
-}
-
-.modal-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #8b5cf6;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.modal-link:hover {
-    background: #7c3aed;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
-}
-
-.modal-link i {
-    font-size: 1rem;
-}
-
-.modal-navigation {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-}
-
-.modal-nav {
-    background: transparent;
-    border: 2px solid #e2e8f0;
-    color: #64748b;
-    padding: 10px 20px;
-    border-radius: 50px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.modal-nav:hover {
-    border-color: #8b5cf6;
-    color: #8b5cf6;
-    background: rgba(139, 92, 246, 0.05);
-}
-
-.modal-prev i, .modal-next i {
-    font-size: 0.9rem;
-}
-
-.project-bg-icon {
-    position: absolute;
-    font-size: 8rem; /* Ukuran ikon */
-    opacity: 0; /* Mulai dengan 0 opacity */
-    z-index: 1; /* Pastikan di bawah konten utama (z-index: 2) */
-    animation: floatProject 30s linear infinite; /* Animasi berulang */
-    color: rgba(139, 92, 246, 0.05); /* Warna lembut */
-    filter: blur(2px); /* Efek blur */
-}
-
-/* Animasi untuk ikon latar belakang */
-@keyframes floatProject {
-    0% {
-        transform: translate(0, 0) rotate(0deg) scale(0.8);
-    }
-    25% {
-        transform: translate(200px, -100px) rotate(90deg) scale(1.2);
-    }
-    50% {
-        transform: translate(400px, 50px) rotate(180deg) scale(1.0);
-    }
-    75% {
-        transform: translate(100px, 200px) rotate(270deg) scale(0.9);
-    }
-    100% {
-        transform: translate(0, 0) rotate(360deg) scale(0.8);
-    }
-}
-
-/* Animasi fadeIn untuk ikon saat section aktif */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 0.1; } /* Ikon akan terlihat sedikit */
-}
-
-/* Ini adalah pemicu animasi ikon */
-#projects.active .project-bg-icon {
-    animation: floatProject 30s linear infinite, fadeIn 1.5s forwards;
-}
-
-#projects.active .projects-header {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.2s;
-}
-
-#projects.active .project-card {
-    opacity: 1;
-    transform: translateY(0) rotate(0deg);
-}
-
-/* Penundaan animasi untuk setiap kartu */
-#projects.active .project-card:nth-child(1) { 
-    transition-delay: 0.4s; 
-}
-#projects.active .project-card:nth-child(2) { 
-    transition-delay: 0.5s; 
-}
-#projects.active .project-card:nth-child(3) { 
-    transition-delay: 0.6s; 
-}
-#projects.active .project-card:nth-child(4) { 
-    transition-delay: 0.7s; 
-}
-#projects.active .project-card:nth-child(5) { 
-    transition-delay: 0.8s; 
-}
-
-/* Animasi ikon latar belakang saat section aktif */
-#projects.active .project-bg-icon {
-    animation: floatProject 30s linear infinite, fadeIn 1.5s forwards;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-    .project-card {
-        width: calc(50% - 15px); /* 2 kartu per baris */
-        min-width: unset; /* Izinkan menyusut */
-    }
-    
-    .modal-gallery {
-        height: 300px;
-    }
-}
-
-@media (max-width: 768px) {
-    .project-card {
-        width: 100%; /* 1 kartu per baris */
-    }
-    
-    .projects-header h2 {
-        font-size: 2rem;
-    }
-    
-    .modal-gallery {
-        height: 250px;
-    }
-    
-    .modal-body {
-        padding: 20px;
-    }
-    
-    .modal-title {
-        font-size: 1.5rem;
-    }
-    
-    .modal-links {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .modal-link {
-        justify-content: center;
-    }
-    
-    /* Ukuran ikon latar belakang yang lebih kecil di mobile */
-    .project-bg-icon {
-        font-size: 5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .modal-gallery {
-        height: 200px;
-    }
-    
-    .gallery-nav {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-    }
-    
-    .modal-navigation {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    /* Ukuran ikon latar belakang yang lebih kecil lagi di mobile sangat kecil */
-    .project-bg-icon {
-        font-size: 3rem;
-    }
-}
-
+/* Projects Section - Ultra Dynamic Version */#projects {
+            position: relative;
+            padding: 120px 0 100px;
+            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        .projects-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .projects-header {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .projects-header h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #e5e7eb;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #8b5cf6, #ec4899, #06b6d4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .projects-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #8b5cf6, #ec4899);
+            border-radius: 2px;
+            opacity: 0;
+            animation: slideIn 1s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                width: 0;
+            }
+            to {
+                opacity: 1;
+                width: 100px;
+            }
+        }
+
+        .projects-header p {
+            font-size: 1.3rem;
+            color: #9ca3af;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Projects Slider */
+        .projects-slider {
+            position: relative;
+            padding: 0 60px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            padding: 30px 0;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(31, 41, 55, 0.9);
+            border: 2px solid #4b5563;
+            border-radius: 50%;
+            color: #e5e7eb;
+            font-size: 1.4rem;
+            cursor: pointer;
+            z-index: 5;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .slider-nav:hover {
+            background: #8b5cf6;
+            border-color: #8b5cf6;
+            transform: translateY(-50%) scale(1.15);
+            box-shadow: 0 12px 35px rgba(139, 92, 246, 0.4);
+        }
+
+        .slider-prev {
+            left: 0;
+        }
+
+        .slider-next {
+            right: 0;
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .slider-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #4b5563;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: none;
+            padding: 0;
+            position: relative;
+        }
+
+        .slider-dot::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            background: #8b5cf6;
+            border-radius: 50%;
+            transition: all 0.4s ease;
+        }
+
+        .slider-dot.active::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .slider-dot.active {
+            background: #8b5cf6;
+            transform: scale(1.3);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+        }
+
+        .slider-dot:hover {
+            background: #8b5cf6;
+            transform: scale(1.2);
+        }
+
+        /* Project Card */
+        .project-card {
+            background: #1f2937;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            will-change: transform;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #8b5cf6, #ec4899, #06b6d4);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            border-radius: 20px;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(139, 92, 246, 0.4);
+            z-index: 3;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover::after {
+            opacity: 1;
+        }
+
+        .project-image {
+            height: 240px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .project-card:hover .project-image::after {
+            opacity: 1;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.15);
+        }
+
+        .project-content {
+            padding: 30px;
+            background: #1f2937;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #f3f4f6;
+            margin-bottom: 12px;
+            transition: all 0.4s ease;
+        }
+
+        .project-card:hover .project-title {
+            color: #8b5cf6;
+            transform: translateY(-2px);
+        }
+
+        .project-subtitle {
+            font-size: 1rem;
+            color: #8b5cf6;
+            font-weight: 600;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .project-description {
+            color: #9ca3af;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 4.8em;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tech-badge {
+            background: #374151;
+            color: #e5e7eb;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .project-card:hover .tech-badge {
+            background: rgba(139, 92, 246, 0.2);
+            color: #a855f7;
+            transform: translateY(-3px);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .tech-badge:nth-child(even) {
+            transition-delay: 0.1s;
+        }
+
+        .tech-badge:nth-child(odd) {
+            transition-delay: 0.2s;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(15px);
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: #1f2937;
+            border-radius: 25px;
+            max-width: 1100px;
+            width: 100%;
+            max-height: 95vh;
+            overflow-y: auto;
+            transform: scale(0.9) translateY(50px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(31, 41, 55, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            border: 2px solid #4b5563;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #e5e7eb;
+            font-size: 1.2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-close:hover {
+            background: #8b5cf6;
+            border-color: #8b5cf6;
+            transform: rotate(180deg) scale(1.1);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .modal-gallery-container {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .modal-gallery {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-image-viewport {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .modal-image-container {
+            display: flex;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+        }
+
+        .modal-image {
+            min-width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 40px;
+            background: #111827;
+            cursor: zoom-in;
+            transition: transform 0.4s ease;
+        }
+
+        .modal-image:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(31, 41, 55, 0.95);
+            border: 2px solid #4b5563;
+            border-radius: 50%;
+            color: #e5e7eb;
+            font-size: 1.4rem;
+            cursor: pointer;
+            z-index: 5;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .gallery-nav:hover {
+            background: #8b5cf6;
+            border-color: #8b5cf6;
+            transform: translateY(-50%) scale(1.15);
+            box-shadow: 0 12px 35px rgba(139, 92, 246, 0.5);
+        }
+
+        .gallery-prev {
+            left: 25px;
+        }
+
+        .gallery-next {
+            right: 25px;
+        }
+
+        .gallery-dots {
+            position: absolute;
+            bottom: 25px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            z-index: 5;
+            padding: 10px;
+        }
+
+        .gallery-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: none;
+            padding: 0;
+            position: relative;
+        }
+
+        .gallery-dot::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            background: #8b5cf6;
+            border-radius: 50%;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-dot.active::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .gallery-dot.active {
+            background: #8b5cf6;
+            transform: scale(1.4);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.8);
+        }
+
+        /* Modal Body */
+        .modal-body {
+            padding: 35px;
+        }
+
+        .modal-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #f3f4f6;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .modal-subtitle {
+            font-size: 1.3rem;
+            color: #8b5cf6;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .modal-description {
+            color: #d1d5db;
+            margin-bottom: 25px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .modal-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .modal-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .modal-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .modal-link:hover {
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(139, 92, 246, 0.5);
+        }
+
+        .modal-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            gap: 20px;
+        }
+
+        .modal-nav {
+            background: #374151;
+            border: 2px solid #4b5563;
+            color: #e5e7eb;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            justify-content: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-nav:hover {
+            background: #4b5563;
+            border-color: #8b5cf6;
+            color: #8b5cf6;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Background Icons */
+        .project-bg-icon {
+            position: absolute;
+            font-size: 12rem;
+            opacity: 0;
+            z-index: 1;
+            animation: floatProject 40s linear infinite;
+            filter: blur(3px);
+            pointer-events: none;
+        }
+
+        @keyframes floatProject {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(0.8);
+            }
+            25% {
+                transform: translate(300px, -150px) rotate(90deg) scale(1.2);
+            }
+            50% {
+                transform: translate(600px, 100px) rotate(180deg) scale(1.0);
+            }
+            75% {
+                transform: translate(150px, 300px) rotate(270deg) scale(0.9);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg) scale(0.8);
+            }
+        }
+
+        /* Particle Effect */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #8b5cf6;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 15s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Animation Triggers */
+        #projects.active .projects-header {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.3s;
+        }
+
+        #projects.active .project-card {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        #projects.active .project-card:nth-child(1) { 
+            transition-delay: 0.4s; 
+        }
+        #projects.active .project-card:nth-child(2) { 
+            transition-delay: 0.5s; 
+        }
+        #projects.active .project-card:nth-child(3) { 
+            transition-delay: 0.6s; 
+        }
+        #projects.active .project-card:nth-child(4) { 
+            transition-delay: 0.7s; 
+        }
+        #projects.active .project-card:nth-child(5) { 
+            transition-delay: 0.8s; 
+        }
+        #projects.active .project-card:nth-child(6) { 
+            transition-delay: 0.9s; 
+        }
+
+        #projects.active .project-bg-icon {
+            animation: floatProject 40s linear infinite, fadeIn 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 0.08; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .projects-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+            }
+            
+            .modal-gallery {
+                height: 450px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .modal-gallery {
+                height: 400px;
+            }
+            
+            .modal-title {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .projects-header h2 {
+                font-size: 2.5rem;
+            }
+            
+            .projects-header p {
+                font-size: 1.2rem;
+            }
+            
+            .modal-gallery {
+                height: 350px;
+            }
+            
+            .modal-title {
+                font-size: 1.8rem;
+            }
+            
+            .modal-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .modal-nav {
+                padding: 12px 20px;
+                font-size: 0.95rem;
+            }
+            
+            .project-bg-icon {
+                font-size: 10rem;
+            }
+
+            .projects-slider {
+                padding: 0 50px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .projects-slider {
+                padding: 0 40px;
+            }
+            
+            .slider-nav {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .modal-gallery {
+                height: 300px;
+            }
+            
+            .gallery-nav {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .modal-navigation {
+                flex-direction: column;
+            }
+            
+            .modal-link {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .project-bg-icon {
+                font-size: 8rem;
+            }
+
+            .projects-header h2 {
+                font-size: 2rem;
+            }
+        }
 
 /* Styling Umum untuk Bagian Kontak */
 /* Vibrant Contact Section */
@@ -3550,103 +3781,336 @@ h2::after {
         
         /* Navbar styles */
        /* Enhanced Navigation Styles */
-nav {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-}
-
-.nav-brand {
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    transition: all 0.3s ease;
-}
-
-.nav-brand:hover {
-    transform: translateY(-2px);
-}
-
-.nav-brand i {
-    transition: transform 0.5s ease;
-}
-
-.nav-brand:hover i {
-    transform: rotate(15deg);
-}
-
-.nav-link {
-    position: relative;
-    padding: 8px 0;
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.nav-link::before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 3px;
-    bottom: 0;
-    left: 0;
-    background: linear-gradient(90deg, #8b5cf6, #ec4899);
-    transition: width 0.3s ease;
-}
-
-.nav-link:hover::before {
-    width: 100%;
-}
-
-.nav-link.active::before {
-    width: 100%;
-}
-
-/* Mobile Menu Animation */
-.mobile-menu {
+/* Glass Navigation */
+        .glass-nav {
+            background: var(--purple-primary);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.2);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .glass-nav.hidden {
     transform: translateY(-100%);
-    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
-}
-
-.mobile-menu.open {
-    transform: translateY(0);
-}
-
-.mobile-menu .nav-link {
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    transition: all 0.3s ease;
-}
-
-.mobile-menu .nav-link:hover {
-    transform: translateX(10px);
-}
-
-/* Hamburger Animation */
-#mobile-menu-button {
-    transition: all 0.3s ease;
-}
-
-#mobile-menu-button.active .line-1 {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-#mobile-menu-button.active .line-2 {
     opacity: 0;
 }
 
-#mobile-menu-button.active .line-3 {
-    transform: rotate(-45deg) translate(5px, -5px);
-}
-        
-        /* Mobile menu */
-        .mobile-menu {
-            transform: translateY(-100%);
-            transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+        .glass-nav.scrolled {
+            background: rgba(139, 92, 246, 0.95);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            box-shadow: 0 4px 30px rgba(139, 92, 246, 0.3);
         }
-        
-        .mobile-menu.open {
-            transform: translateY(0);
+
+        /* Enhanced Brand Styling */
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #f0c014;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-brand::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .nav-brand:hover::before {
+            left: 100%;
+        }
+
+        .nav-brand:hover {
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        /* Logo styling */
+        .nav-brand .logo {
+            margin-right: 0.75rem;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #f0c014;
+            font-family: 'Courier New', monospace;
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .nav-brand:hover .logo {
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        /* Desktop: Show full name */
+        .nav-brand .brand-text-full {
+            display: inline;
+            font-weight: 800;
+            color: #f0c014;
+        }
+
+        .nav-brand .brand-text-short {
+            display: none;
+            font-weight: 800;
+            color: #f0c014;
+        }
+
+        /* Mobile: Show short name */
+        @media (max-width: 768px) {
+            .nav-brand .brand-text-full {
+                display: none;
+            }
+            
+            .nav-brand .brand-text-short {
+                display: inline;
+            }
+            
+            .nav-brand {
+                font-size: 1.25rem;
+            }
+            
+            .nav-brand .logo {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Enhanced Desktop Navigation Links */
+        .nav-link {
+            position: relative;
+            padding: 0.75rem 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: white;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            width: 100%;
+        }
+
+        .nav-link:hover::after {
+            opacity: 1;
+        }
+
+        .nav-link:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .nav-link.active::before {
+            width: 100%;
+            background: white;
+        }
+
+        /* Mobile Menu Button */
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 60;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform-origin: center;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Enhanced Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(139, 92, 246, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.9);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+
+        /* Close Button */
+        .close-button {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 60;
+        }
+
+        .close-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .close-button i {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .mobile-menu-link {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: 600;
+            padding: 1.2rem 2.5rem;
+            margin: 0.8rem 0;
+            border-radius: 15px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideInUp 0.6s ease forwards;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu-link:nth-child(2) { animation-delay: 0.1s; }
+        .mobile-menu-link:nth-child(3) { animation-delay: 0.2s; }
+        .mobile-menu-link:nth-child(4) { animation-delay: 0.3s; }
+        .mobile-menu-link:nth-child(5) { animation-delay: 0.4s; }
+        .mobile-menu-link:nth-child(6) { animation-delay: 0.5s; }
+        .mobile-menu-link:nth-child(7) { animation-delay: 0.6s; }
+
+        .mobile-menu-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .mobile-menu-link:hover::before {
+            left: 0;
+        }
+
+        .mobile-menu-link:hover {
+            transform: translateX(10px) scale(1.05);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .mobile-menu-link i {
+            margin-right: 1rem;
+            font-size: 1.4rem;
+            width: 35px;
+            text-align: center;
+            color: #f0c014;
+        }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Menu overlay backdrop */
+        .menu-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 45;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .menu-backdrop.active {
+            opacity: 1;
+            visibility: visible;
         }
         
         /* Project card */
@@ -3701,23 +4165,47 @@ nav {
     }
 
     /* Make sure the typewriter text aligns with the rest of the heading */
-    h2.text-2xl.md\:text-3xl {
-        display: flex;
-        align-items: center;
-        justify-content: center; /* For mobile */
-    }
-
-    @media (min-width: 768px) {
+   /* Heading alignment - Fixed */
         h2.text-2xl.md\:text-3xl {
-            justify-content: flex-start; /* For desktop */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
-    }
 
-    @media (min-width: 768px) {
-        h2.text-2xl.md\:text-3xl {
-            justify-content: flex-start; /* For desktop */
+        /* Remove duplicate media query and fix desktop alignment */
+        @media (min-width: 768px) {
+            h2.text-2xl.md\:text-3xl {
+                justify-content: center; /* Tetap center untuk desktop juga */
+            }
         }
-    }
+
+        /* Blink animation */
+        @keyframes blink {
+            0%, 50% {
+                opacity: 1;
+            }
+            51%, 100% {
+                opacity: 0;
+            }
+        }
+        /* Typewriter animation */
+        .typewriter-text {
+            border-right: 2px solid #FFD700;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3s steps(30, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #FFD700 }
+        }
         
         /* Skill bubbles */
         .skill-bubble {
@@ -3810,56 +4298,70 @@ nav {
 </head>
 <body class="bg-gray-50">
 
-   <nav class="fixed w-full bg-white bg-opacity-90 shadow-sm z-50 transition-all duration-300">
-    <div class="container mx-auto px-6 py-3">
-        <div class="flex justify-between items-center">
-            <a href="#home" class="nav-brand text-dark-blue">
-                <i class="fas fa-code text-primary mr-2"></i> 
-                <span class="gradient-text">Aryamukti Satria Hendrayana</span> 
-            </a>
-            <div class="hidden md:flex space-x-8">
-                <a href="#home" class="nav-link text-gray-700 hover:text-dark-blue font-medium">Home</a>
-                <a href="#about" class="nav-link text-gray-700 hover:text-dark-blue font-medium">About</a>
-                <a href="#skills" class="nav-link text-gray-700 hover:text-dark-blue font-medium">Skills</a>
-                <a href="#projects" class="nav-link text-gray-700 hover:text-dark-blue font-medium">Projects</a>
-                <a href="#experience" class="nav-link text-gray-700 hover:text-dark-blue font-medium">Experience</a>
-                <a href="#contact" class="nav-link text-gray-700 hover:text-dark-blue font-medium">Contact</a>
-            </div>
-            <button class="md:hidden focus:outline-none" id="mobile-menu-button">
-                <div class="w-6 flex flex-col space-y-1.5">
-                    <span class="line-1 h-0.5 w-full bg-gray-700 transition-all duration-300"></span>
-                    <span class="line-2 h-0.5 w-full bg-gray-700 transition-all duration-300"></span>
-                    <span class="line-3 h-0.5 w-full bg-gray-700 transition-all duration-300"></span>
+   <nav class="glass-nav fixed w-full top-0 z-40 transition-all duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 lg:h-20">
+                <!-- Brand with Logo -->
+                <a href="#home" class="nav-brand">
+                    <span class="logo">&lt;/&gt;</span>
+                    <span class="brand-text">Aryamukti Satria Hendrayana</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-2 lg:space-x-4">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#skills" class="nav-link">Skills</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#experience" class="nav-link">Experience</a>
+                    <a href="#contact" class="nav-link">Contact</a>
                 </div>
-            </button>
-        </div>
-    </div>
-    
-    <div class="mobile-menu md:hidden absolute w-full bg-white bg-opacity-95 shadow-lg z-40 **hidden**" id="mobile-menu">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex flex-col space-y-4">
-                <a href="#home" class="nav-link text-gray-700 hover:text-dark-blue font-medium flex items-center">
-                    <i class="fas fa-home mr-3 text-primary"></i> Home
-                </a>
-                <a href="#about" class="nav-link text-gray-700 hover:text-dark-blue font-medium flex items-center">
-                    <i class="fas fa-user mr-3 text-primary"></i> About
-                </a>
-                <a href="#skills" class="nav-link text-gray-700 hover:text-dark-blue font-medium flex items-center">
-                    <i class="fas fa-cog mr-3 text-primary"></i> Skills
-                </a>
-                <a href="#projects" class="nav-link text-gray-700 hover:text-dark-blue font-medium flex items-center">
-                    <i class="fas fa-project-diagram mr-3 text-primary"></i> Projects
-                </a>
-                <a href="#experience" class="nav-link text-gray-700 hover:text-dark-blue font-medium flex items-center">
-                    <i class="fas fa-briefcase mr-3 text-primary"></i> Experience
-                </a>
-                <a href="#contact" class="nav-link text-gray-700 hover:text-dark-blue font-medium flex items-center">
-                    <i class="fas fa-envelope mr-3 text-primary"></i> Contact
-                </a>
+
+                <!-- Mobile Menu Button -->
+                <button class="menu-toggle md:hidden z-50" id="menuToggle" aria-label="Toggle Navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
+    </nav>
+
+    <!-- Menu Backdrop -->
+    <div class="menu-backdrop" id="menuBackdrop"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <!-- Close Button -->
+        <button class="close-button" id="closeButton" aria-label="Close Menu">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <a href="#home" class="mobile-menu-link">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#about" class="mobile-menu-link">
+            <i class="fas fa-user"></i>
+            <span>About</span>
+        </a>
+        <a href="#skills" class="mobile-menu-link">
+            <i class="fas fa-cog"></i>
+            <span>Skills</span>
+        </a>
+        <a href="#projects" class="mobile-menu-link">
+            <i class="fas fa-project-diagram"></i>
+            <span>Projects</span>
+        </a>
+        <a href="#experience" class="mobile-menu-link">
+            <i class="fas fa-briefcase"></i>
+            <span>Experience</span>
+        </a>
+        <a href="#contact" class="mobile-menu-link">
+            <i class="fas fa-envelope"></i>
+            <span>Contact</span>
+        </a>
     </div>
-</nav>
 
     <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden gradient-bg text-white">
         <!-- Enhanced Background Animations -->
@@ -3940,13 +4442,13 @@ nav {
             </div>
         </div>
         
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <a href="#about" class="text-white hover:text-primary">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-                </svg>
-            </a>
-        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce z-20">
+    <a href="#projects" class="text-white hover:text-primary transition-colors duration-300 cursor-pointer">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+    </a>
+</div>
     </section>
     
     <section id="about" class="py-20">
@@ -4167,69 +4669,77 @@ nav {
 
 
 <section id="projects" class="py-20 relative overflow-hidden">
-   <!-- Floating tech icons background -->
-    <i class="tech-bg-icon fab fa-html5" style="top: 10%; left: 5%; color: #e34f26; animation-delay: 0s;"></i>
-    <i class="tech-bg-icon fab fa-css3-alt" style="top: 20%; right: 8%; color: #2965f1; animation-delay: 2s;"></i>
-    <i class="tech-bg-icon fab fa-js" style="bottom: 15%; left: 7%; color: #f7df1e; animation-delay: 4s;"></i>
-    <i class="tech-bg-icon fab fa-react" style="top: 30%; right: 10%; color: #61dafb; animation-delay: 1s;"></i>
-    <i class="tech-bg-icon fab fa-node-js" style="bottom: 25%; right: 5%; color: #68a063; animation-delay: 3s;"></i>
-    <i class="tech-bg-icon fas fa-database" style="top: 15%; left: 15%; color: #00758f; animation-delay: 5s;"></i>
-    <i class="tech-bg-icon fab fa-git-alt" style="bottom: 30%; right: 15%; color: #f14e32; animation-delay: 2.5s;"></i>
-    <i class="tech-bg-icon fas fa-server" style="top: 40%; left: 10%; color: #5e5e5e; animation-delay: 3.5s;"></i>
-    <i class="project-bg-icon fab fa-react" style="top: 10%; left: 5%;"></i>
-    <i class="project-bg-icon fab fa-node-js" style="top: 20%; right: 8%;"></i>
-    <i class="project-bg-icon fab fa-js" style="bottom: 15%; left: 7%;"></i>
-    <i class="project-bg-icon fab fa-vuejs" style="top: 30%; right: 10%;"></i>
-    <i class="project-bg-icon fab fa-laravel" style="bottom: 25%; right: 5%;"></i>
+    <!-- Floating tech icons background -->
+    <i class="project-bg-icon fab fa-react" style="top: 10%; left: 5%; animation-delay: 0s;"></i>
+    <i class="project-bg-icon fab fa-node-js" style="top: 20%; right: 8%; animation-delay: 2s;"></i>
+    <i class="project-bg-icon fab fa-js" style="bottom: 15%; left: 7%; animation-delay: 4s;"></i>
+    <i class="project-bg-icon fab fa-vuejs" style="top: 30%; right: 10%; animation-delay: 1s;"></i>
+    <i class="project-bg-icon fab fa-laravel" style="bottom: 25%; right: 5%; animation-delay: 3s;"></i>
+    
+    <div class="projects-container">
+        <div class="projects-header">
+            <h2>My Projects</h2>
+            <p>Take a look at some of my recent work and creations</p>
+        </div>
         
-        <div class="projects-container">
-            <div class="projects-header">
-                <h2>My Projects</h2>
-                <p>Take a look at some of my recent work and creations</p>
+        <div class="projects-grid">
+            <!-- Project cards will be inserted here by JavaScript -->
+        </div>
+    </div>
+    
+    <!-- Project Modal -->
+    <div class="modal-overlay" id="project-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close" aria-label="Close modal">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-gallery-container">
+                <div class="modal-gallery">
+                    <button class="gallery-nav gallery-prev" aria-label="Previous image">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="modal-image-viewport">
+                        <div class="modal-image-container"></div>
+                    </div>
+                    
+                    <button class="gallery-nav gallery-next" aria-label="Next image">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="gallery-dots"></div>
             </div>
             
-            <div class="projects-slider">
-                <div class="projects-track" id="projects-track">
-                    </div>
-            </div>
-            <div class="dots-container" id="dots-container">
+            <div class="modal-body">
+                <h3 class="modal-title" id="modal-project-title"></h3>
+                <p class="modal-subtitle" id="modal-project-subtitle"></p>
+                <p class="modal-description" id="modal-project-description"></p>
+                
+                <div class="modal-tech" id="modal-project-tech"></div>
+                
+                <div class="modal-links">
+                    <a href="#" class="modal-link" target="_blank" id="modal-project-link" rel="noopener noreferrer">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                    <a href="#" class="modal-link" target="_blank" id="modal-live-link" rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
                 </div>
-        </div>
-        
-        <div class="modal-overlay" id="project-modal">
-            <div class="modal-content">
-                <div class="modal-close" id="modal-close">
-                    <i class="fas fa-times"></i>
-                </div>
-                <div class="modal-gallery">
-                    <button class="gallery-nav gallery-prev"><i class="fas fa-chevron-left"></i></button>
-                    <div class="modal-image-container">
-                        </div>
-                    <button class="gallery-nav gallery-next"><i class="fas fa-chevron-right"></i></button>
-                    <div class="gallery-dots">
-                        </div>
-                </div>
-                <div class="modal-body">
-                    <h3 class="modal-title" id="modal-project-title"></h3>
-                    <p class="modal-subtitle" id="modal-project-subtitle"></p>
-                    <p class="modal-description" id="modal-project-description"></p>
-                    <div class="modal-tech" id="modal-project-tech"></div>
-                    <div class="modal-links">
-                        <a href="#" class="modal-link" target="_blank" id="modal-project-link">
-                            <i class="fab fa-github"></i> View on GitHub
-                        </a>
-                        <a href="#" class="modal-link" target="_blank" id="modal-live-link">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                    </div>
-                    <div class="modal-navigation">
-                        <button class="modal-nav modal-prev"><i class="fas fa-chevron-left"></i> Previous</button>
-                        <button class="modal-nav modal-next">Next <i class="fas fa-chevron-right"></i></button>
-                    </div>
+                
+                <div class="modal-navigation">
+                    <button class="modal-nav modal-prev">
+                        <i class="fas fa-chevron-left"></i> Previous Project
+                    </button>
+                    <button class="modal-nav modal-next">
+                        Next Project <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="experience">
   <div class="experience-container">
@@ -4741,74 +5251,221 @@ nav {
     setTimeout(typeWriter, 1000);
 
         // Enhanced Navigation Scripts
-document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const navLinks = document.querySelectorAll('.nav-link');
+  document.addEventListener('DOMContentLoaded', function() {
+    const nav = document.querySelector('.glass-nav');
+    const projectModal = document.getElementById('project-modal');
+    const modalClose = document.querySelector('.modal-close');
     
-    // Mobile menu toggle
-    mobileMenuButton.addEventListener('click', function() {
-        this.classList.toggle('active');
-        mobileMenu.classList.toggle('open');
+    // Function to open modal and hide nav
+    function openModal() {
+        projectModal.classList.add('active');
+        nav.classList.add('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    // Function to close modal and show nav
+    function closeModal() {
+        projectModal.classList.remove('active');
+        nav.classList.remove('hidden');
+        document.body.style.overflow = 'auto';
+    }
+    
+    // Event listeners for project cards (add your existing card click handlers)
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('click', openModal);
     });
     
-    // Close mobile menu when link is clicked
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            mobileMenuButton.classList.remove('active');
-            mobileMenu.classList.remove('open');
-        });
+    // Close modal when clicking close button or overlay
+    modalClose.addEventListener('click', closeModal);
+    projectModal.addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
     });
     
-    // Active link highlight on scroll
-    const sections = document.querySelectorAll('section');
-    
-    window.addEventListener('scroll', function() {
-        let current = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            
-            if (pageYOffset >= sectionTop - 300) {
-                current = section.getAttribute('id');
-            }
-        });
-        
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && projectModal.classList.contains('active')) {
+            closeModal();
+        }
     });
-    
-    // Add hover effect to nav brand
-    const navBrand = document.querySelector('.nav-brand');
-    navBrand.addEventListener('mouseenter', function() {
-        this.querySelector('i').style.transform = 'rotate(15deg)';
-        this.style.transform = 'translateY(-2px)';
-    });
-    
-    navBrand.addEventListener('mouseleave', function() {
-        this.querySelector('i').style.transform = 'rotate(0)';
-        this.style.transform = 'translateY(0)';
-    });
-});
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+            // Scroll effects for navigation
+            let lastScrollTop = 0;
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // Add scrolled class for style changes
+                if (scrollTop > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+
+                // Active link highlighting
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (scrollTop >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+
+                lastScrollTop = scrollTop;
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const headerOffset = 80;
+                        const elementPosition = target.offsetTop;
+                        const offsetPosition = elementPosition - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Touch swipe gesture for mobile menu
+            let touchStartX = 0;
+            let touchEndX = 0;
+            let touchStartY = 0;
+            let touchEndY = 0;
+
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            });
+
+            document.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                touchEndY = e.changedTouches[0].screenY;
+                handleSwipe();
+            });
+
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const swipeDistance = touchEndX - touchStartX;
+                const verticalDistance = Math.abs(touchEndY - touchStartY);
+
+                // Only handle horizontal swipes
+                if (verticalDistance < swipeThreshold && Math.abs(swipeDistance) > swipeThreshold) {
+                    if (swipeDistance > 0 && !isMenuOpen) {
+                        // Swipe right - open menu
+                        openMobileMenu();
+                    } else if (swipeDistance < 0 && isMenuOpen) {
+                        // Swipe left - close menu
+                        closeMobileMenu();
+                    }
+                }
+            }
+
+            // Intersection Observer for fade-in animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all sections
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'all 0.6s ease';
+                observer.observe(section);
+            });
+
+            // Parallax effect for brand icon
+            const brandIcon = document.querySelector('.nav-brand i');
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.3;
+                if (brandIcon) {
+                    brandIcon.style.transform = `translateY(${rate}px)`;
                 }
             });
+
+            // Resize handler for responsive adjustments
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768 && isMenuOpen) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Enhanced hover effects for desktop nav links
+            navLinks.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+
+                link.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            // Add click feedback for mobile menu links
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.95)';
+                });
+
+                link.addEventListener('touchend', function() {
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+
+            // Preload animations
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
         });
+
+        // Performance optimization with requestAnimationFrame
+        let ticking = false;
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(updateAnimations);
+                ticking = true;
+            }
+        }
+
+        function updateAnimations() {
+            // Animation updates here
+            ticking = false;
+        }
+
+        // Prevent scroll when menu is open
+        document.addEventListener('wheel', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu && mobileMenu.classList.contains('active')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
     </script>
     <script>
         // About Section Animation
@@ -4910,32 +5567,33 @@ document.addEventListener('DOMContentLoaded', function() {
 });
     </script>
     <script>
- document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     // Elements
     const projectsSection = document.querySelector('#projects');
-    const projectsTrack = document.getElementById('projects-track');
-    const dotsContainer = document.getElementById('dots-container');
+    const projectsGrid = document.querySelector('.projects-grid');
     const projectModal = document.getElementById('project-modal');
     const modalClose = document.getElementById('modal-close');
     const galleryPrevBtn = document.querySelector('.gallery-prev');
     const galleryNextBtn = document.querySelector('.gallery-next');
     const modalPrevProjectBtn = document.querySelector('.modal-prev');
     const modalNextProjectBtn = document.querySelector('.modal-next');
+    const modalImageContainer = document.querySelector('.modal-image-container');
+    const galleryDots = document.querySelector('.gallery-dots');
 
-    // Project data (pastikan jalur gambar benar relatif terhadap index.html)
+    // Project data
     const projects = [
-            {
-        title: "Project KKN - Automated Surat Chatbot",
-        subtitle: "Node.js Fullstack Web App with WhatsApp Bot Integration",
-        description: "Project KKN is a full-stack web application built with Node.js, featuring a Tailwind-styled frontend and a JavaScript-powered interactive interface. It includes an integrated WhatsApp chatbot powered by the Baileys library, enabling users to automatically generate official letters ('surat') by chatting with the bot. Once confirmed, these letters are instantly created and available through the website. The architecture ensures secure and seamless interaction between frontend, backend, and WhatsApp, enhancing user experience and operational efficiency.",
-        tech: ["Node.js", "Express.js", "Tailwind CSS", "Baileys (WhatsApp Web API)", "JavaScript"],
-        images: [
-            "assets/project/halo-bonkid/foto1.png",
-            "assets/project/halo-bonkid/foto2.png",
-            "assets/project/halo-bonkid/foto3.png"
-        ],
-        github: "https://github.com/SiAnakAlim/Project-KKN",
-        live: "https://sianakalim.github.io/Project-KKN/" // ganti jika ada deployment
+        {
+            title: "Project KKN - Automated Surat Chatbot",
+            subtitle: "Node.js Fullstack Web App with WhatsApp Bot Integration",
+            description: "Project KKN is a full-stack web application built with Node.js, featuring a Tailwind-styled frontend and a JavaScript-powered interactive interface. It includes an integrated WhatsApp chatbot powered by the Baileys library, enabling users to automatically generate official letters ('surat') by chatting with the bot. Once confirmed, these letters are instantly created and available through the website. The architecture ensures secure and seamless interaction between frontend, backend, and WhatsApp, enhancing user experience and operational efficiency.",
+            tech: ["Node.js", "Express.js", "Tailwind CSS", "Baileys (WhatsApp Web API)", "JavaScript"],
+            images: [
+                "assets/project/halo-bonkid/foto1.png",
+                "assets/project/halo-bonkid/foto2.png",
+                "assets/project/halo-bonkid/foto3.png"
+            ],
+            github: "https://github.com/SiAnakAlim/Project-KKN",
+            live: "https://sianakalim.github.io/Project-KKN/"
         },
         {
             title: "Cuacaku - Weather App for Sleman",
@@ -4948,22 +5606,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 "assets/project/cuacaku/login.jpg"
             ],
             github: "https://github.com/SiAnakAlim/App-Mobile-Cuacaku",
-            live: "https://sianakalim.github.io/App-Mobile-Cuacaku/" // replace if available
+            live: "https://sianakalim.github.io/App-Mobile-Cuacaku/"
         },
-            {
-                title: "Sistem e-Buku Tanah",
-                subtitle: "Web App / Land Records Management",
-                 description: "Sistem e-Buku Tanah is a fully functional land records management web application developed independently using PHP and MySQL. It allows for efficient CRUD operations on land ownership data with a user-friendly interface built using Bootstrap and HTML. The system has been successfully deployed and is actively used by 3 organizational divisions on a daily basis. With 0% error rates since deployment, it demonstrates high reliability, clean backend logic, and secure database interaction through server-side validation.",
-                tech: ["PHP", "MySQL", "Bootstrap", "HTML", "JavaScript"],
-                images: [
-                    "assets/project/buku-tanah/login.png",
-                    "assets/project/buku-tanah/dashboard.png",
-                    "assets/project/buku-tanah/tabel.png"
-                ],
-                github: "https://github.com/SiAnakAlim/Sistem-eBukuTanah",
-                live: "https://peminjamankantahkotayk.com/" 
-            },
-            {
+        {
+            title: "Sistem e-Buku Tanah",
+            subtitle: "Web App / Land Records Management",
+            description: "Sistem e-Buku Tanah is a fully functional land records management web application developed independently using PHP and MySQL. It allows for efficient CRUD operations on land ownership data with a user-friendly interface built using Bootstrap and HTML. The system has been successfully deployed and is actively used by 3 organizational divisions on a daily basis. With 0% error rates since deployment, it demonstrates high reliability, clean backend logic, and secure database interaction through server-side validation.",
+            tech: ["PHP", "MySQL", "Bootstrap", "HTML", "JavaScript"],
+            images: [
+                "assets/project/buku-tanah/login.png",
+                "assets/project/buku-tanah/dashboard.png",
+                "assets/project/buku-tanah/tabel.png"
+            ],
+            github: "https://github.com/SiAnakAlim/Sistem-eBukuTanah",
+            live: "https://peminjamankantahkotayk.com/" 
+        },
+        {
             title: "Secure Notes Application",
             subtitle: "Fullstack Web App / Note-Taking App",
             description: "A secure full-stack note-taking web application built with Node.js. It features robust JWT (JSON Web Token) authentication for secure user login and access to personal notes. The application emphasizes a clear separation of frontend and backend responsibilities, with the frontend handling user interaction and the backend managing authentication, note data, and routing logic. JWT acts as a secure bridge for authenticated API communication, ensuring both simplicity and safety in user data handling.",
@@ -4989,7 +5647,7 @@ document.addEventListener('DOMContentLoaded', function() {
             github: "https://github.com/SiAnakAlim/Lomba-IOFest-Untar/tree/master",
             live: "https://sianakalim.github.io/Lomba-IOFest-Untar/homepage.html"
         },
-         {
+        {
             title: "Explore Jogja",
             subtitle: "Tourism Website",
             description: "Explore Jogja is a tourism website designed to showcase the beauty of Yogyakarta, Indonesia. It features various destinations, traditional cuisines, and accommodations available throughout the city. With an elegant landing page and smooth scrolling interaction, visitors are welcomed with a video background and intuitive navigation. This project emphasizes user-friendly design and aesthetic visuals.",
@@ -5005,41 +5663,39 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     // State variables
-    let currentIndex = 0;
-    let cardWidth = 0;
-    let totalSlides = 0;
-    let isDragging = false;
-    let startPosX = 0;
-    let currentTranslate = 0;
-    let prevTranslate = 0;
     let currentProjectIndex = 0;
     let currentImageIndex = 0;
-    let clickStartTime = 0;
-    let clickStartX = 0;
 
     // Initialize the projects section
     function initProjects() {
         renderProjects();
-        calculateSliderMetrics();
-        initDots();
-        positionCards();
         setupEventListeners();
         
-       
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    projectsSection.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        observer.observe(projectsSection);
     }
 
     // Render project cards
     function renderProjects() {
-        projectsTrack.innerHTML = '';
+        projectsGrid.innerHTML = '';
         
         projects.forEach((project, index) => {
             const card = document.createElement('div');
             card.className = 'project-card';
-            card.setAttribute('data-project-index', index); // Use a consistent data attribute
+            card.setAttribute('data-project-index', index);
             
             card.innerHTML = `
                 <div class="project-image">
-                    <img src="${project.images[0]}" alt="${project.title}">
+                    <img src="${project.images[0]}" alt="${project.title}" loading="lazy">
                 </div>
                 <div class="project-content">
                     <h3 class="project-title">${project.title}</h3>
@@ -5051,143 +5707,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
             
-            projectsTrack.appendChild(card);
+            projectsGrid.appendChild(card);
         });
-    }
-
-    // Calculate slider metrics
-    function calculateSliderMetrics() {
-        const firstCard = document.querySelector('.project-card');
-        if (firstCard) {
-            const cardStyle = getComputedStyle(firstCard);
-            const gap = parseFloat(getComputedStyle(projectsTrack).gap || '0px'); // Get gap from projects-track
-            
-            // cardWidth should be firstCard.offsetWidth + gap for accurate sliding
-            cardWidth = firstCard.offsetWidth + gap; 
-            
-            // Calculate how many cards fit in the slider view
-            const sliderWidth = projectsTrack.parentElement.offsetWidth;
-            const cardsInView = Math.floor(sliderWidth / cardWidth);
-            
-            // totalSlides represents the number of distinct "positions" the slider can be in
-            // if cardsInView is 3 and there are 5 projects, totalSlides is 5-3+1 = 3 (slide 0, slide 1, slide 2)
-            totalSlides = Math.max(projects.length - cardsInView + 1, 1);
-            
-            // Ensure currentIndex doesn't go out of bounds
-            currentIndex = Math.min(currentIndex, totalSlides - 1);
-        }
-    }
-
-    // Initialize dots navigation
-    function initDots() {
-        dotsContainer.innerHTML = '';
-        
-        if (totalSlides <= 1) return;
-        
-        const dotsToShow = Math.min(5, totalSlides);
-        const middleDotIndex = Math.floor(dotsToShow / 2);
-        
-        for (let i = 0; i < dotsToShow; i++) {
-            const dot = document.createElement('div');
-            dot.className = 'dot';
-            
-            let slideIndex;
-            if (totalSlides <= dotsToShow) {
-                // If total slides are 5 or less, each dot maps directly
-                slideIndex = i;
-            } else {
-                // For more than 5 slides, center the active dot
-                if (currentIndex <= middleDotIndex) {
-                    slideIndex = i; // Show first few dots
-                } else if (currentIndex >= totalSlides - (dotsToShow - middleDotIndex)) {
-                    slideIndex = totalSlides - dotsToShow + i; // Show last few dots
-                } else {
-                    slideIndex = currentIndex - middleDotIndex + i; // Center around current index
-                }
-            }
-            
-            if (slideIndex === currentIndex) dot.classList.add('active');
-            
-            dot.addEventListener('click', () => {
-                goToSlide(slideIndex);
-            });
-            
-            dotsContainer.appendChild(dot);
-        }
-    }
-
-    // Go to specific slide
-    function goToSlide(index) {
-        if (index < 0 || index >= totalSlides || totalSlides <= 1) return;
-        
-        currentIndex = index;
-        const scrollAmount = currentIndex * cardWidth; 
-        
-        projectsTrack.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
-        projectsTrack.style.transform = `translateX(-${scrollAmount}px)`;
-        
-        // Update dots after animation completes
-        setTimeout(initDots, 600);
-    }
-
-    // Position cards (used on resize or init)
-    function positionCards() {
-        projectsTrack.style.transition = 'none';
-        projectsTrack.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-        setTimeout(() => {
-            projectsTrack.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
-        }, 50);
     }
 
     // Setup event listeners
     function setupEventListeners() {
-        // Drag functionality
-        projectsTrack.addEventListener('mousedown', dragStart);
-        projectsTrack.addEventListener('touchstart', dragStart, { passive: false });
-        projectsTrack.addEventListener('mouseup', dragEnd);
-        projectsTrack.addEventListener('touchend', dragEnd);
-        projectsTrack.addEventListener('mousemove', drag);
-        projectsTrack.addEventListener('touchmove', drag, { passive: false });
-        projectsTrack.addEventListener('mouseleave', dragEnd);
-
-        // Prevent image drag
-        document.querySelectorAll('.project-image img').forEach(img => {
-            img.addEventListener('dragstart', (e) => e.preventDefault());
-        });
-
         // Project card clicks
         document.querySelectorAll('.project-card').forEach((card) => {
-            card.addEventListener('click', function(e) {
-                const clickDuration = Date.now() - clickStartTime;
-                // Use e.touches[0].clientX for touch events, e.clientX for mouse
-                const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
-                const clickDistance = Math.abs(clientX - clickStartX);
-                
-                // If it was a drag or too short/long click, ignore
-                if (isDragging || clickDuration > 300 || clickDistance > 10) {
-                    return;
-                }
-                
-                const projectIndex = parseInt(card.getAttribute('data-project-index'));
+            card.addEventListener('click', function() {
+                const projectIndex = parseInt(this.getAttribute('data-project-index'));
                 openModal(projectIndex);
-            });
-            
-            // Track click start position and time
-            card.addEventListener('mousedown', function(e) {
-                clickStartTime = Date.now();
-                clickStartX = e.clientX;
-            });
-            
-            card.addEventListener('touchstart', function(e) {
-                clickStartTime = Date.now();
-                clickStartX = e.touches[0].clientX;
             });
         });
 
         // Modal close
         modalClose.addEventListener('click', closeModal);
         projectModal.addEventListener('click', function(e) {
-            if (e.target === this) closeModal(); // Close if background overlay is clicked
+            if (e.target === this) closeModal();
         });
 
         // Keyboard navigation
@@ -5196,33 +5733,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 closeModal();
             }
             
-            if (!projectModal.classList.contains('active')) {
-                // Navigate main slider
+            if (projectModal.classList.contains('active')) {
                 if (e.key === 'ArrowLeft') {
-                    goToSlide(currentIndex - 1);
-                } else if (e.key === 'ArrowRight') {
-                    goToSlide(currentIndex + 1);
-                }
-            } else {
-                // Inside modal, navigate images or projects
-                if (e.key === 'ArrowLeft') {
-                    if (e.shiftKey) { // Shift + Left to navigate projects
+                    if (e.shiftKey) {
                         navigateProjects(-1);
-                    } else { // Just Left to navigate images
+                    } else {
                         navigateImages(-1);
                     }
                 } else if (e.key === 'ArrowRight') {
-                    if (e.shiftKey) { // Shift + Right to navigate projects
+                    if (e.shiftKey) {
                         navigateProjects(1);
-                    } else { // Just Right to navigate images
+                    } else {
                         navigateImages(1);
                     }
                 }
             }
         });
-
-        // Window resize
-        window.addEventListener('resize', handleResize);
 
         // Modal navigation buttons
         galleryPrevBtn.addEventListener('click', () => navigateImages(-1));
@@ -5231,80 +5757,10 @@ document.addEventListener('DOMContentLoaded', function() {
         modalNextProjectBtn.addEventListener('click', () => navigateProjects(1));
     }
 
-    // Handle window resize
-    function handleResize() {
-        calculateSliderMetrics();
-        initDots();
-        positionCards(); // Reposition cards after resize
-    }
-
-    // Drag start
-    function dragStart(e) {
-        if (totalSlides <= 1) return;
-        
-        isDragging = true;
-        startPosX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-        
-        // Get the current translateX value
-        const transformMatrix = new WebKitCSSMatrix(getComputedStyle(projectsTrack).transform);
-        prevTranslate = transformMatrix.m41; 
-
-        projectsTrack.style.cursor = 'grabbing';
-        projectsTrack.style.transition = 'none'; // Disable transition during drag
-        
-        if (e.type === 'mousedown') e.preventDefault(); // Prevent text selection
-    }
-
-    // Drag movement
-    function drag(e) {
-        if (!isDragging || totalSlides <= 1) return;
-        
-        const currentPosition = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
-        const diff = currentPosition - startPosX; // Positive if dragged right, negative if dragged left
-        currentTranslate = prevTranslate + diff;
-        
-        // Apply resistance at boundaries
-        const maxScroll = -(totalSlides - 1) * cardWidth; 
-        const minScroll = 0;
-
-        if (currentTranslate > minScroll) { // Dragged too far right
-            currentTranslate = minScroll + (currentTranslate - minScroll) * 0.3; 
-        } else if (currentTranslate < maxScroll) { // Dragged too far left
-            currentTranslate = maxScroll + (currentTranslate - maxScroll) * 0.3;
-        }
-        
-        projectsTrack.style.transform = `translateX(${currentTranslate}px)`;
-        
-        if (e.type === 'touchmove') e.preventDefault();
-    }
-
-    // Drag end
-    function dragEnd() {
-        if (!isDragging || totalSlides <= 1) {
-            isDragging = false;
-            return;
-        }
-        
-        isDragging = false;
-        projectsTrack.style.cursor = 'grab';
-        
-        const movedBy = currentTranslate - prevTranslate; // Difference from where drag started
-        const threshold = cardWidth * 0.2; // 20% of a card width for snapping
-
-        let newIndex = currentIndex;
-
-        if (movedBy < -threshold) { // Dragged significantly left
-            newIndex = Math.min(currentIndex + 1, totalSlides - 1);
-        } else if (movedBy > threshold) { // Dragged significantly right
-            newIndex = Math.max(currentIndex - 1, 0);
-        }
-        
-        goToSlide(newIndex); // Snap to the calculated new slide
-    }
-
     // Open modal with project details
     function openModal(index) {
         currentProjectIndex = index;
+        currentImageIndex = 0;
         const project = projects[index];
         
         // Set modal content
@@ -5323,146 +5779,99 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Set links
-        document.getElementById('modal-project-link').href = project.github;
-        document.getElementById('modal-live-link').href = project.live;
-                const modalProjectLink = document.getElementById('modal-project-link');
+        const modalProjectLink = document.getElementById('modal-project-link');
         const modalLiveLink = document.getElementById('modal-live-link');
 
         modalProjectLink.href = project.github;
         modalLiveLink.href = project.live;
 
         modalProjectLink.onclick = function(event) {
-    event.stopPropagation();
-    window.open(project.github, '_blank'); // membuka di tab baru
-};
+            event.stopPropagation();
+            window.open(project.github, '_blank');
+        };
 
-modalLiveLink.onclick = function(event) {
-    event.stopPropagation();
-    window.open(project.live, '_blank'); // membuka di tab baru
-};
-
+        modalLiveLink.onclick = function(event) {
+            event.stopPropagation();
+            window.open(project.live, '_blank');
+        };
         
         // Set gallery images
-        const galleryContainer = document.querySelector('.modal-image-container');
-        const galleryDots = document.querySelector('.gallery-dots');
-        
-        galleryContainer.innerHTML = ''; // Clear previous images
-        galleryDots.innerHTML = ''; // Clear previous dots
+        modalImageContainer.innerHTML = '';
+        galleryDots.innerHTML = '';
         
         project.images.forEach((image, i) => {
             const img = document.createElement('img');
             img.src = image;
-            img.alt = project.title + ' ' + (i + 1); // Descriptive alt text
+            img.alt = `${project.title} - Screenshot ${i + 1}`;
             img.className = 'modal-image';
+            img.loading = 'eager';
             
-            // Tambahkan ini untuk membuat gambar bisa diklik
+            // Make image clickable to open in new tab
             img.addEventListener('click', () => {
-                window.open(image, '_blank'); // Membuka gambar di tab baru
+                window.open(image, '_blank');
             });
 
-            galleryContainer.appendChild(img);
+            modalImageContainer.appendChild(img);
             
-            const dot = document.createElement('div');
+            const dot = document.createElement('button');
             dot.className = 'gallery-dot';
+            dot.setAttribute('aria-label', `View image ${i + 1}`);
             dot.addEventListener('click', () => showImage(i));
             galleryDots.appendChild(dot);
         });
         
-        currentImageIndex = 0; // Reset image index to 0 when opening new project
-        showImage(currentImageIndex); // Show the first image initially
+        showImage(currentImageIndex);
 
-        // Enable/disable gallery navigation if only one image
-        if (project.images.length <= 1) {
-            galleryPrevBtn.style.display = 'none';
-            galleryNextBtn.style.display = 'none';
-            galleryDots.style.display = 'none';
-        } else {
-            galleryPrevBtn.style.display = 'flex';
-            galleryNextBtn.style.display = 'flex';
-            galleryDots.style.display = 'flex';
-        }
-
-        // Enable/disable project navigation if only one project
-        if (projects.length <= 1) {
-            modalPrevProjectBtn.style.display = 'none';
-            modalNextProjectBtn.style.display = 'none';
-        } else {
-            modalPrevProjectBtn.style.display = 'flex';
-            modalNextProjectBtn.style.display = 'flex';
-        }
-        
         // Show modal
         projectModal.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent body scrolling
+        document.body.style.overflow = 'hidden';
     }
 
     // Show specific image in gallery
     function showImage(index) {
-        const images = document.querySelectorAll('.modal-image-container .modal-image');
-        const dots = document.querySelectorAll('.gallery-dots .gallery-dot');
-        const galleryContainer = document.querySelector('.modal-image-container');
-        
-        if (index >= images.length || index < 0 || images.length === 0) return;
+        const images = projects[currentProjectIndex].images;
+        if (index >= images.length || index < 0) return;
         
         currentImageIndex = index;
+        modalImageContainer.style.transform = `translateX(-${index * 100}%)`;
         
-        // Update transform for sliding effect
-        galleryContainer.style.transform = `translateX(-${index * 100}%)`;
-
         // Update active dots
-        dots.forEach((dot, i) => {
+        document.querySelectorAll('.gallery-dot').forEach((dot, i) => {
             dot.classList.toggle('active', i === index);
-        });
-
-        // Update image opacity (if desired for fade-in effect after slide)
-        images.forEach((img, i) => {
-            img.classList.toggle('active', i === index);
         });
     }
 
     // Close modal
     function closeModal() {
         projectModal.classList.remove('active');
-        document.body.style.overflow = 'auto'; // Re-enable body scrolling
+        document.body.style.overflow = 'auto';
     }
 
     // Navigation between projects from modal
     function navigateProjects(direction) {
         let newIndex = currentProjectIndex + direction;
         
-        if (newIndex < 0) newIndex = projects.length - 1; // Loop back
-        if (newIndex >= projects.length) newIndex = 0; // Loop forward
+        if (newIndex < 0) newIndex = projects.length - 1;
+        if (newIndex >= projects.length) newIndex = 0;
         
         openModal(newIndex);
     }
 
     // Navigation between images in gallery
     function navigateImages(direction) {
-        const currentProject = projects[currentProjectIndex];
+        const images = projects[currentProjectIndex].images;
         let newIndex = currentImageIndex + direction;
         
-        if (newIndex < 0) newIndex = currentProject.images.length - 1; // Loop back
-        if (newIndex >= currentProject.images.length) newIndex = 0; // Loop forward
+        if (newIndex < 0) newIndex = images.length - 1;
+        if (newIndex >= images.length) newIndex = 0;
         
         showImage(newIndex);
     }
 
-    // Intersection Observer for animations
-    const projectsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                projectsSection.classList.add('active');
-                // Icons animation is triggered by this 'active' class via CSS
-                projectsObserver.unobserve(entry.target); // Observe only once
-            }
-        });
-    }, { threshold: 0.1 }); // Trigger when 10% of the section is visible
-
     // Initialize everything
     initProjects();
-    projectsObserver.observe(projectsSection);
 });
-    </script>
+</script>
 
    
 
