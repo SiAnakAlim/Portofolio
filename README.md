@@ -13,9 +13,9 @@ A stunning ✨, responsive portfolio website built with pure **HTML**, **Tailwin
 ## 🎨 Screenshot Gallery
 
 <div align="center">
-  <img src="https://github.com/SiAnakAlim/Portofolio/blob/main/assets/ss/dashboard.png" width="70%" alt="Dashboard" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-  <img src="https://github.com/SiAnakAlim/Portofolio/blob/main/assets/ss/projects.png" width="70%" alt="Projects" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-  <img src="https://github.com/SiAnakAlim/Portofolio/blob/main/assets/ss/contact.png" width="70%" alt="Contact" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+  <img src="https://github.com/SiAnakAlim/Portofolio/blob/main/assets/ss/dashboard.png" width="100%" alt="Dashboard" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+  <img src="https://github.com/SiAnakAlim/Portofolio/blob/main/assets/ss/projects.png" width="100%" alt="Projects" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+  <img src="https://github.com/SiAnakAlim/Portofolio/blob/main/assets/ss/contact.png" width="100%" alt="Contact" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
 </div>
 
 ## 🛠️ Tech Stack
