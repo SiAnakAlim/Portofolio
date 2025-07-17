@@ -13,9 +13,9 @@ A stunning ✨, responsive portfolio website built with pure **HTML**, **Tailwin
 ## 🎨 Screenshot Gallery
 
 <div align="center">
-  <img src="https://github.com/SiAnakAlim/Portofolio/blob/main/assets/ss/dashboard.png" width="30%" alt="Dashboard" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-  <img src="https://github.com/SiAnakAlim/Portofolio/blob/main/assets/ss/projects.png" width="30%" alt="Projects" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-  <img src="https://github.com/SiAnakAlim/Portofolio/blob/main/assets/ss/contact.png" width="30%" alt="Contact" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+  <img src="https://github.com/SiAnakAlim/Portofolio/blob/main/assets/ss/dashboard.png" width="40%" alt="Dashboard" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+  <img src="https://github.com/SiAnakAlim/Portofolio/blob/main/assets/ss/projects.png" width="40%" alt="Projects" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+  <img src="https://github.com/SiAnakAlim/Portofolio/blob/main/assets/ss/contact.png" width="40%" alt="Contact" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
 </div>
 
 ## 🛠️ Tech Stack
@@ -68,6 +68,4 @@ xdg-open index.html
 ```
 ### 📬 Let's Connect!
 <p align="center"> <a href="mailto:aryamuktisatria@gmail.com"> <img src="https://img.shields.io/badge/📧_Email-D14836?style=for-the-badge&logo=gmail&logoColor=white"> </a> <a href="https://wa.me/628562519826"> <img src="https://img.shields.io/badge/💬_WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white"> </a> <a href="https://linkedin.com/in/aryamuktisatriahendrayana"> <img src="https://img.shields.io/badge/👔_LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"> </a> <a href="https://github.com/SiAnakAlim"> <img src="https://img.shields.io/badge/💻_GitHub-181717?style=for-the-badge&logo=github&logoColor=white"> </a> </p><div align="center">
-https://profile-counter.glitch.me/SiAnakAlim/count.svg
 
-</div>
